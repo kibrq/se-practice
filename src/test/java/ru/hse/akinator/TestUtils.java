@@ -4,22 +4,22 @@ import ru.hse.akinator.model.Disease;
 import ru.hse.akinator.model.Model;
 import ru.hse.akinator.model.Symptom;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestUtils {
+    private static final Random random = new Random();
+
     public static String randomAlphabeticString(int size) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
-        Random random = new Random();
 
         return random.ints(leftLimit, rightLimit + 1)
                 .limit(size)
@@ -80,5 +80,21 @@ public class TestUtils {
 
     public static List<Disease> diseasesFromSymptomsWithRandomNames(List<Symptom> allSymptoms, List<List<Long>> ids) {
         return diseasesFromSymptoms(allSymptoms, randomListOfAlphabeticStrings(ids.size(), 4), ids);
+    }
+
+    public static List<Disease> randomDiseases(int nSymptoms, int nDiseases) {
+        List<Symptom> symptoms = symptomsFromRandomNames(nSymptoms);
+        List<Long> ids = LongStream.range(0, nSymptoms).boxed().collect(Collectors.toList());
+        List<List<Long>> idSymptoms = Stream.generate(() -> {
+                    Collections.shuffle(ids);
+                    return ids.subList(0, random.nextInt(nSymptoms - 1) + 1);
+                })
+                .limit(nDiseases)
+                .collect(Collectors.toList());
+        return diseasesFromSymptomsWithRandomNames(symptoms, idSymptoms);
+    }
+
+    public static Set<Disease> randomDiseasesAsSet(int nSymptoms, int nDiseases) {
+        return new HashSet<>(randomDiseases(nSymptoms, nDiseases));
     }
 }
