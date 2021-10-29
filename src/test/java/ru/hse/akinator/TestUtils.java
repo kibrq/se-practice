@@ -35,8 +35,7 @@ public class TestUtils {
 
     public static <T extends Model> List<T> createWithIds(Function<Long, T> create, int size) {
         return IntStream.range(0, size)
-                .mapToObj(
-                        id -> create.apply((long) id))
+                .mapToObj(id -> create.apply((long) id))
                 .collect(Collectors.toList());
     }
 
