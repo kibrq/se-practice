@@ -1,6 +1,7 @@
 package ru.hse.akinator;
 
 import ru.hse.akinator.model.Disease;
+import ru.hse.akinator.model.DoctorType;
 import ru.hse.akinator.model.Model;
 import ru.hse.akinator.model.Symptom;
 
@@ -96,5 +97,14 @@ public class TestUtils {
 
     public static Set<Disease> randomDiseasesAsSet(int nSymptoms, int nDiseases) {
         return new HashSet<>(randomDiseases(nSymptoms, nDiseases));
+    }
+
+    public static DoctorType doctorTypeWithRandomName() {
+        var d = mock(DoctorType.class);
+        Set<Disease> diseases = randomDiseasesAsSet(5, 3);
+        when(d.getDiseases()).thenReturn(diseases);
+        when(d.getName()).thenReturn(randomAlphabeticString(4));
+        when(d.getId()).thenReturn(1L);
+        return d;
     }
 }
