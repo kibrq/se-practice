@@ -4,7 +4,7 @@ import java.util.Set;
 
 public interface DoctorType extends Model {
     static DoctorType create(Long id, String name, Set<Disease> diseases) {
-        throw new UnsupportedOperationException();
+        return new DoctorTypeImpl(id, name, diseases);
     }
 
     String getName();
