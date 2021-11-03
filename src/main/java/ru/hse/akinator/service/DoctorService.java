@@ -8,11 +8,11 @@ import ru.hse.akinator.repository.Repository;
 import java.util.List;
 
 public class DoctorService {
-    public static List<DoctorType> getAllRelevantTypes(Disease disease) {
+    public static List<DoctorType> getAllRelevantTypes(List<DoctorType> allTypes, Disease disease) {
         throw new UnsupportedOperationException();
     }
 
-    public static List<Doctor> getAllRelevantDoctors(DoctorType type) {
+    public static List<Doctor> getAllRelevantDoctors(List<Doctor> allDoctors, List<DoctorType> types) {
         throw new UnsupportedOperationException();
     }
 
