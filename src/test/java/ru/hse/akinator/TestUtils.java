@@ -232,9 +232,6 @@ public class TestUtils {
                 symptoms.forEach(s -> result.put(s, map.get(s)));
                 return result;
             }
-
-			@Override
-			public void close() throws IOException {}
 		};
     }
 }
