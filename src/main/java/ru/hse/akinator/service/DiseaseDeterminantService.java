@@ -8,13 +8,15 @@ import ru.hse.akinator.repository.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DiseaseDeterminantService {
 
     public static double measureProbability(Disease disease, Map<Symptom, Answer> answerBySymptoms) {
         int counter = 0;
         for (Map.Entry<Symptom, Answer> entry : answerBySymptoms.entrySet()) {
-            boolean isSymptomInDisease = disease.getSymptoms().contains(entry.getKey());
+            String name = entry.getKey().getName();
+            boolean isSymptomInDisease = disease.getSymptoms().stream().anyMatch(symptom -> Objects.equals(symptom.getName(), name));
             switch (entry.getValue()) {
                 case DEFINITELY_YES -> {
                     counter += isSymptomInDisease ? 2 : -2;
