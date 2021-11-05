@@ -105,8 +105,7 @@ public class TestUtils {
     public static Interaction interactionFromSymptomAnswerMap(Map<Symptom, Answer> map) {
         return new Interaction() {
             @Override
-            public void close() {
-            }
+            public void close() {}
 
             @Override
             public Answer askAboutSymptom(Symptom s) {
