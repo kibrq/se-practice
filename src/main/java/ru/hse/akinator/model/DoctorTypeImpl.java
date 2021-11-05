@@ -9,9 +9,9 @@ public class DoctorTypeImpl implements DoctorType {
 
     public DoctorTypeImpl(Long id, String name, Set<Disease> diseases) {
         if (id == null) {
-            throw new IllegalArgumentException("Doctor id cannot be null");
+            throw new IllegalArgumentException("Doctor type id cannot be null");
         } else if (name == null) {
-            throw new IllegalArgumentException("Doctor name cannot be null");
+            throw new IllegalArgumentException("Doctor type name cannot be null");
         } else if (diseases == null) {
             throw new IllegalArgumentException("Doctor diseases cannot be null");
         }
@@ -29,7 +29,7 @@ public class DoctorTypeImpl implements DoctorType {
     @Override
     public void setName(String newName) {
         if (newName == null) {
-            throw new IllegalArgumentException("Doctor name cannot be null");
+            throw new IllegalArgumentException("Doctor type name cannot be null");
         }
         name = newName;
     }
