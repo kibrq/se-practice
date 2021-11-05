@@ -5,6 +5,7 @@ import ru.hse.akinator.interaction.Interaction;
 import ru.hse.akinator.model.*;
 import ru.hse.akinator.repository.Repository;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -192,6 +193,7 @@ public class TestUtils {
     public static List<Doctor> doctors(List<DoctorType> allDoctorTypes, List<Long> doctorTypeIds) {
         List<Double> businesses = random.doubles().limit(doctorTypeIds.size()).boxed().collect(Collectors.toList());
         return doctors(allDoctorTypes, doctorTypeIds, businesses);
+	}
 
     public static <T extends Model> Repository<T> repositoryFromList(List<T> items) {
         return new Repository<>() {
@@ -227,6 +229,9 @@ public class TestUtils {
                 symptoms.forEach(s -> result.put(s, map.get(s)));
                 return result;
             }
-        };
+
+			@Override
+			public void close() throws IOException {}
+		};
     }
 }
