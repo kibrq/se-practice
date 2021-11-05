@@ -1,5 +1,6 @@
 plugins {
     java
+	checkstyle
 }
 
 group = "ru.hse"
