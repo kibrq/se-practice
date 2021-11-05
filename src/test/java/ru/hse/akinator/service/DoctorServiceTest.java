@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.hse.akinator.TestUtils;
 import ru.hse.akinator.model.Disease;
+import ru.hse.akinator.model.Doctor;
 import ru.hse.akinator.model.DoctorType;
 
 import java.util.HashSet;
@@ -37,6 +38,31 @@ public class DoctorServiceTest {
                 .map(allDoctorTypes::get)
                 .collect(Collectors.toSet());
         Set<DoctorType> actual = new HashSet<>(actualDoctorTypes);
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    public static Object[][] testGetAllRelevantDoctors_Source() {
+        return new Object[][]{
+                {List.of(), List.of(0, 1), List.of()},
+                {List.of(0L), List.of(0, 1), List.of(0)},
+        };
+    }
+
+    @ParameterizedTest
+    @MethodSource("testGetAllRelevantDoctors_Source")
+    public void testGetAllRelevantDoctors(List<Long> doctorDoctorTypeDependencies, List<Integer> testedDoctorTypeNumbers, List<Integer> relevantDoctorNumbers) {
+        List<Disease> allDiseases = TestUtils.randomDiseases(10, 10);
+        List<DoctorType> allDoctorTypes = TestUtils.doctorTypesWithRandomNames(allDiseases, 10);
+        List<Doctor> allDoctors = TestUtils.doctors(allDoctorTypes, doctorDoctorTypeDependencies);
+
+        List<Doctor> actualDoctors = DoctorService.getAllRelevantDoctors(
+                allDoctors, testedDoctorTypeNumbers.stream().map(allDoctorTypes::get).collect(Collectors.toList())
+        );
+
+        Set<Doctor> expected = relevantDoctorNumbers.stream()
+                .map(allDoctors::get)
+                .collect(Collectors.toSet());
+        Set<Doctor> actual = new HashSet<>(actualDoctors);
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 }

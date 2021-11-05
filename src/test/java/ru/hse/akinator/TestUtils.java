@@ -1,7 +1,6 @@
 package ru.hse.akinator;
 
 import ru.hse.akinator.model.*;
-import ru.hse.akinator.repository.Repository;
 
 import java.util.*;
 import java.util.function.Function;
@@ -132,5 +131,39 @@ public class TestUtils {
     public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, List<List<Long>> ids) {
         List<String> names = randomListOfAlphabeticStrings(ids.size(), 4);
         return doctorTypesWithRandomNames(allDiseases, names, ids);
+    }
+
+    public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, int nDoctorTypes) {
+        List<Long> ids = allDiseases.stream().map(Model::getId).collect(Collectors.toList());
+        List<List<Long>> doctorTypeDiseaseDependencies = Stream.generate(() -> {
+                    Collections.shuffle(ids);
+                    return ids.subList(0, random.nextInt(allDiseases.size() - 1) + 1);
+                })
+                .limit(nDoctorTypes)
+                .collect(Collectors.toList());
+        return doctorTypesWithRandomNames(allDiseases, doctorTypeDiseaseDependencies);
+    }
+
+    public static List<Doctor> doctors(List<String> names, List<DoctorType> allDoctorTypes, List<Long> doctorTypesIds, List<Double> businesses) {
+        Function<Long, Doctor> create = id -> {
+          var d = mock(Doctor.class);
+          when(d.getId()).thenReturn(id);
+          when(d.getName()).thenReturn(names.get(id.intValue()));
+          when(d.getType()).thenReturn(allDoctorTypes.get(doctorTypesIds.get(id.intValue()).intValue()));
+          when(d.getBusyness()).thenReturn(businesses.get(id.intValue()));
+          return d;
+        };
+
+        return createWithIds(create, names.size());
+    }
+
+    public static List<Doctor> doctors(List<DoctorType> allDoctorTypes, List<Long> doctorTypeIds, List<Double> businesses) {
+        List<String> names = randomListOfAlphabeticStrings(doctorTypeIds.size(), 4);
+        return doctors(names, allDoctorTypes, doctorTypeIds, businesses);
+    }
+
+    public static List<Doctor> doctors(List<DoctorType> allDoctorTypes, List<Long> doctorTypeIds) {
+        List<Double> businesses = random.doubles().limit(doctorTypeIds.size()).boxed().collect(Collectors.toList());
+        return doctors(allDoctorTypes, doctorTypeIds, businesses);
     }
 }
