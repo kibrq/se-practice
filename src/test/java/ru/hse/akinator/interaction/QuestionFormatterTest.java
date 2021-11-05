@@ -7,14 +7,14 @@ import ru.hse.akinator.TestUtils;
 import ru.hse.akinator.model.Symptom;
 
 public class QuestionFormatterTest {
-    public static Object[][] testGetters_Source() {
+    public static Object[][] testFormatter_Source() {
         return new Object[][]{
                 {null}
         };
     }
 
     @ParameterizedTest
-    @MethodSource("testGetters_Source")
+    @MethodSource("testFormatter_Source")
     public void testFormatter(Symptom symptom) {
         if (symptom == null || symptom.getName() == null) {
             Assertions.assertThatThrownBy(() -> QuestionFormatter.questionAboutSymptom(symptom)).isInstanceOf(IllegalArgumentException.class);
