@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InteractionTest {
 
@@ -56,7 +57,9 @@ public class InteractionTest {
             if (symptoms == null) {
                 Assertions.assertThatThrownBy(() -> interaction.askAboutSymptoms(symptoms)).isInstanceOf(IllegalArgumentException.class);
             } else {
-                Assertions.assertThat(interaction.askAboutSymptoms(symptoms)).isEqualTo(expectedAns);
+                var answersBySymptom = interaction.askAboutSymptoms(symptoms);
+                List<Answer> actual = symptoms.stream().map(answersBySymptom::get).collect(Collectors.toList());
+                Assertions.assertThat(actual).isEqualTo(expectedAns);
             }
         }
     }
