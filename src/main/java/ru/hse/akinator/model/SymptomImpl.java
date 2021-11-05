@@ -30,6 +30,6 @@ public class SymptomImpl implements Symptom {
         if (name == null) {
             throw new IllegalArgumentException();
         }
-        this.name = "Che-to ne ochen'";
+        this.name = name;
     }
 }
