@@ -4,6 +4,7 @@ import ru.hse.akinator.interaction.Interaction;
 import ru.hse.akinator.model.*;
 import ru.hse.akinator.repository.Repository;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -103,6 +104,10 @@ public class TestUtils {
 
     public static Interaction interactionFromSymptomAnswerMap(Map<Symptom, Answer> map) {
         return new Interaction() {
+            @Override
+            public void close() {
+            }
+
             @Override
             public Answer askAboutSymptom(Symptom s) {
                 return map.get(s);
