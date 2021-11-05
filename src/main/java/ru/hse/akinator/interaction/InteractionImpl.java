@@ -24,6 +24,9 @@ public class InteractionImpl implements Interaction {
 
     @Override
     public Answer askAboutSymptom(Symptom s) {
+        if (s == null) {
+            throw new IllegalArgumentException();
+        }
         printStream.print(questionFormatter.apply(s));
         String answer;
         try {
