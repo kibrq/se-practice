@@ -18,6 +18,10 @@ public class DoctorServiceTest {
     public static Object[][] testGetAllRelevantTypes_Source() {
         return new Object[][]{
                 {List.of(), 1, List.of()},
+                {List.of(List.of(0L)), 1, List.of()},
+                {List.of(List.of(0L, 1L)), 1, List.of(0)},
+                {List.of(List.of(0L), List.of(0L), List.of(0L)), 0, List.of(0, 1, 2)},
+                {List.of(List.of(0L), List.of(0L), List.of(0L)), 2, List.of()}
         };
     }
 
