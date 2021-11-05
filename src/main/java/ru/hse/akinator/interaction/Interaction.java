@@ -13,7 +13,7 @@ import java.util.function.Function;
 public interface Interaction extends Closeable {
 
     static Interaction create(InputStream is, PrintStream outputStream, Function<Symptom, String> questionFormatter) {
-        throw new UnsupportedOperationException();
+        return new InteractionImpl(is, outputStream, questionFormatter);
     }
 
     Answer askAboutSymptom(Symptom s);
