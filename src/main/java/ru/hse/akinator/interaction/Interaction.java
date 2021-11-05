@@ -7,10 +7,11 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public interface Interaction {
 
-    static Interaction create(InputStream is, PrintStream outputStream, QuestionFormatter questionFormatter) {
+    static Interaction create(InputStream is, PrintStream outputStream, Function<Symptom, String> questionFormatter) {
         throw new UnsupportedOperationException();
     }
 
