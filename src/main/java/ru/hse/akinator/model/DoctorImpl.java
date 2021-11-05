@@ -30,6 +30,9 @@ public class DoctorImpl implements Doctor {
 
     @Override
     public void setName(String newName) {
+        if (newName == null) {
+            throw new IllegalArgumentException("Doctor name cannot be null");
+        }
         name = newName;
     }
 
@@ -40,6 +43,9 @@ public class DoctorImpl implements Doctor {
 
     @Override
     public void setType(DoctorType newType) {
+        if (newType == null) {
+            throw new IllegalArgumentException("Doctor type cannot be null");
+        }
         doctorType = newType;
     }
 
@@ -50,6 +56,9 @@ public class DoctorImpl implements Doctor {
 
     @Override
     public void setBusyness(double newBusyness) {
+        if (newBusyness <= 0) {
+            throw new IllegalArgumentException("Doctor busyness must be positive");
+        }
         busyness = newBusyness;
     }
 
