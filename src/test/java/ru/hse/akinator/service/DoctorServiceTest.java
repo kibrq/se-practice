@@ -73,6 +73,10 @@ public class DoctorServiceTest {
     public static Object[][] testGetLessBusinessDoctor_Source() {
         return new Object[][]{
                 {List.of(List.of(0L, 1L, 2L)), List.of(), List.of(), 0, -1},
+                {List.of(List.of(0L, 1L, 2L)), List.of(0L), List.of(1.), 3, -1},
+                {List.of(List.of(0L, 1L, 2L)), List.of(0L), List.of(1.), 0, 0},
+                {List.of(List.of(0L, 1L, 2L)), List.of(0L, 0L), List.of(1., 2.), 1, 0},
+                {List.of(List.of(0L, 1L), List.of(0L, 2L)), List.of(0L, 1L), List.of(1., 2.), 0, 0}
         };
     }
 
