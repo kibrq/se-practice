@@ -45,6 +45,9 @@ public class DoctorServiceTest {
         return new Object[][]{
                 {List.of(), List.of(0, 1), List.of()},
                 {List.of(0L), List.of(0, 1), List.of(0)},
+                {List.of(0L, 0L, 1L, 0L), List.of(0, 2), List.of(0, 1, 3)},
+                {List.of(0L, 0L, 1L, 0L), List.of(1), List.of(2)},
+                {List.of(0L, 0L, 1L, 0L), List.of(0, 1), List.of(0, 1, 2, 3)}
         };
     }
 
