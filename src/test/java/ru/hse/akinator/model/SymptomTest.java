@@ -17,6 +17,13 @@ public class SymptomTest {
         };
     }
 
+    public static Object[][] testSetters_Source() {
+        return new Object[][]{
+                {null, null, null},
+                {0L, "Che-to ne ochen'", null}
+        };
+    }
+
     @ParameterizedTest
     @MethodSource("testGetters_Source")
     public void testGetters(Long id, String name) {
@@ -26,6 +33,21 @@ public class SymptomTest {
             Symptom symptom = Symptom.create(id, name);
             Assertions.assertThat(symptom.getId()).isEqualTo(id);
             Assertions.assertThat(symptom.getName()).isEqualTo(name);
+        }
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("testSetters_Source")
+    public void testSetters(Long id, String name, String newName) {
+        if (id == null || name == null) {
+            Assertions.assertThatThrownBy(() -> Symptom.create(id, name)).isInstanceOf(IllegalArgumentException.class);
+        } else {
+            Symptom symptom = Symptom.create(id, name);
+            Assertions.assertThat(symptom.getId()).isEqualTo(id);
+            Assertions.assertThat(symptom.getName()).isEqualTo(name);
+            symptom.setName(newName);
+            Assertions.assertThat(symptom.getName()).isEqualTo(newName);
         }
     }
 }
