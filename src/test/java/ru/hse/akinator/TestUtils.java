@@ -1,12 +1,10 @@
 package ru.hse.akinator;
 
-import ru.hse.akinator.model.Disease;
-import ru.hse.akinator.model.Model;
-import ru.hse.akinator.model.Symptom;
+import ru.hse.akinator.interaction.Interaction;
+import ru.hse.akinator.model.*;
+import ru.hse.akinator.repository.Repository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -80,5 +78,42 @@ public class TestUtils {
 
     public static List<Disease> diseasesFromSymptomsWithRandomNames(List<Symptom> allSymptoms, List<List<Long>> ids) {
         return diseasesFromSymptoms(allSymptoms, randomListOfAlphabeticStrings(ids.size(), 4), ids);
+    }
+
+    public static <T extends Model> Repository<T> repositoryFromList(List<T> items) {
+        return new Repository<>() {
+            @Override
+            public List<T> getAll() {
+                return items;
+            }
+
+            @Override
+            public T getById(Long id) {
+                return items.stream().filter(t -> Objects.equals(t.getId(), id)).findFirst().orElse(null);
+            }
+
+            @Override
+            public boolean add(T value) {
+                boolean added = getById(value.getId()) != null;
+                items.add(value);
+                return added;
+            }
+        };
+    }
+
+    public static Interaction interactionFromSymptomAnswerMap(Map<Symptom, Answer> map) {
+        return new Interaction() {
+            @Override
+            public Answer askAboutSymptom(Symptom s) {
+                return map.get(s);
+            }
+
+            @Override
+            public Map<Symptom, Answer> askAboutSymptoms(List<Symptom> symptoms) {
+                var result = new HashMap<Symptom, Answer>();
+                symptoms.forEach(s -> result.put(s, map.get(s)));
+                return result;
+            }
+        };
     }
 }
