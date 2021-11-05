@@ -2,7 +2,7 @@ package ru.hse.akinator.model;
 
 public class SymptomImpl implements Symptom {
     private final Long id;
-    private String name;
+    private final String name;
 
     public SymptomImpl(Long id, String name) {
         if (id == null) {
@@ -17,12 +17,12 @@ public class SymptomImpl implements Symptom {
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
