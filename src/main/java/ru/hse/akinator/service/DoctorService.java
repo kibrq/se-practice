@@ -16,7 +16,7 @@ public class DoctorService {
     }
 
     public static List<Doctor> getAllRelevantDoctors(List<Doctor> allDoctors, List<DoctorType> types) {
-        throw new UnsupportedOperationException();
+        return allDoctors.stream().filter(doctor -> types.contains(doctor.getType())).collect(Collectors.toList());
     }
 
     public static Doctor getLessBusynessDoctor(Disease disease, Repository<Doctor> doctorRepository) {
