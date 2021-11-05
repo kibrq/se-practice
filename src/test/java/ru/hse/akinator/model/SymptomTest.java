@@ -20,7 +20,9 @@ public class SymptomTest {
     public static Object[][] testSetters_Source() {
         return new Object[][]{
                 {null, null, null},
-                {0L, "Che-to ne ochen'", null}
+                {0L, "Che-to ne ochen'", null},
+                {0L, "Che-to ne ochen'", "Voobshe ploho"},
+                {0L, TestUtils.randomAlphabeticString(10), TestUtils.randomAlphabeticString(10)}
         };
     }
 
@@ -46,8 +48,12 @@ public class SymptomTest {
             Symptom symptom = Symptom.create(id, name);
             Assertions.assertThat(symptom.getId()).isEqualTo(id);
             Assertions.assertThat(symptom.getName()).isEqualTo(name);
-            symptom.setName(newName);
-            Assertions.assertThat(symptom.getName()).isEqualTo(newName);
+            if (newName == null) {
+                Assertions.assertThatThrownBy(() -> symptom.setName(newName)).isInstanceOf(IllegalArgumentException.class);
+            } else {
+                symptom.setName(newName);
+                Assertions.assertThat(symptom.getName()).isEqualTo(newName);
+            }
         }
     }
 }
