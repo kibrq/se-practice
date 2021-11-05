@@ -7,6 +7,8 @@ import ru.hse.akinator.TestUtils;
 
 import ru.hse.akinator.model.Symptom;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class RepositoryTest {
@@ -27,7 +29,7 @@ public class RepositoryTest {
 		for (Symptom symptom : symptoms) {
 			repository.add(symptom);
 		}
-		Assertions.assertThat(repository.getAll()).isEqualTo(symptoms);
+		Assertions.assertThat(new HashSet<>(repository.getAll())).isEqualTo(new HashSet<>(symptoms));
 	}
 
 	@ParameterizedTest

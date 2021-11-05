@@ -1,11 +1,9 @@
 package ru.hse.akinator;
 
-import org.junit.jupiter.params.provider.EnumSource;
 import ru.hse.akinator.interaction.Interaction;
 import ru.hse.akinator.model.*;
 import ru.hse.akinator.repository.Repository;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
