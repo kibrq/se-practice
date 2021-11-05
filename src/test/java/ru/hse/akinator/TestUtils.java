@@ -1,9 +1,7 @@
 package ru.hse.akinator;
 
-import ru.hse.akinator.model.Disease;
-import ru.hse.akinator.model.DoctorType;
-import ru.hse.akinator.model.Model;
-import ru.hse.akinator.model.Symptom;
+import ru.hse.akinator.model.*;
+import ru.hse.akinator.repository.Repository;
 
 import java.util.*;
 import java.util.function.Function;
@@ -106,5 +104,33 @@ public class TestUtils {
         when(d.getName()).thenReturn(randomAlphabeticString(4));
         when(d.getId()).thenReturn(1L);
         return d;
+    }
+
+    public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, List<String> names, List<List<Long>> ids) {
+
+        Map<Long, Disease> diseasesById = allDiseases.stream().collect(
+                Collectors.toMap(
+                        Disease::getId,
+                        Function.identity())
+        );
+
+        Function<Long, DoctorType> create = id -> {
+            var d = mock(DoctorType.class);
+            when(d.getId()).thenReturn(id);
+            when(d.getDiseases()).thenReturn(
+                    ids.get(id.intValue()).stream()
+                            .map(diseasesById::get)
+                            .collect(Collectors.toSet())
+            );
+            when(d.getName()).thenReturn(names.get(id.intValue()));
+            return d;
+        };
+
+        return createWithIds(create, names.size());
+    }
+
+    public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, List<List<Long>> ids) {
+        List<String> names = randomListOfAlphabeticStrings(ids.size(), 4);
+        return doctorTypesWithRandomNames(allDiseases, names, ids);
     }
 }
