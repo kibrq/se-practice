@@ -11,11 +11,14 @@ public class DiseaseImpl implements Disease {
         if (id == null || name == null || symptoms == null) {
             throw new IllegalArgumentException();
         }
+        this.id = id;
+        this.name = name;
+        this.symptoms = symptoms;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class DiseaseImpl implements Disease {
 
     @Override
     public List<Symptom> getSymptoms() {
-        return null;
+        return symptoms;
     }
 
     @Override
@@ -35,6 +38,6 @@ public class DiseaseImpl implements Disease {
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 }
