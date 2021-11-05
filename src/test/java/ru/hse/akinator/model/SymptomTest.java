@@ -9,7 +9,11 @@ public class SymptomTest {
 
     public static Object[][] testGetters_Source() {
         return new Object[][]{
-                {null, null}
+                {null, null},
+                {null, ""},
+                {0L, null},
+                {0L, "Smert"},
+                {1L, TestUtils.randomAlphabeticString(5)}
         };
     }
 
