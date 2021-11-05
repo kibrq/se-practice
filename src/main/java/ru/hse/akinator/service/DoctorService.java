@@ -6,10 +6,13 @@ import ru.hse.akinator.model.DoctorType;
 import ru.hse.akinator.repository.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DoctorService {
     public static List<DoctorType> getAllRelevantTypes(List<DoctorType> allTypes, Disease disease) {
-        throw new UnsupportedOperationException();
+        return allTypes.stream()
+                .filter(doctorType -> doctorType.getDiseases().contains(disease))
+                .collect(Collectors.toList());
     }
 
     public static List<Doctor> getAllRelevantDoctors(List<Doctor> allDoctors, List<DoctorType> types) {
