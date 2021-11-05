@@ -44,7 +44,7 @@ public class DiseaseDeterminantService {
                 this.relevance = relevance;
             }
         }
-        ;
+
         List<DiseaseRelevance> relevances = new LinkedList<>();
         for (Disease disease : diseases) {
             relevances.add(new DiseaseRelevance(disease, measureProbability(disease, answerBySymptoms)));

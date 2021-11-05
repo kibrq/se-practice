@@ -5,9 +5,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.hse.akinator.TestUtils;
+import ru.hse.akinator.interaction.Interaction;
 import ru.hse.akinator.model.Answer;
 import ru.hse.akinator.model.Disease;
 import ru.hse.akinator.model.Symptom;
+import ru.hse.akinator.repository.Repository;
 
 import java.util.*;
 
@@ -188,6 +190,7 @@ public class DiseaseDeterminantServiceTest {
         Assertions.assertThat(probability1).isEqualTo(probability2);
     }
 
+
     // ============================================================================================================
     // Test sortByRelevance
 
@@ -297,5 +300,68 @@ public class DiseaseDeterminantServiceTest {
         Assertions.assertThat(diseases).isEqualTo(correctDiseases);
     }
 
+
+    // ============================================================================================================
+    // Test diseasesSortedByRelevance
+
+    @ParameterizedTest
+    @MethodSource("testSortByRelevance_Source")
+    public void testDiseasesSortedByRelevance(List<List<Long>> diseaseSymptoms,
+                                              List<Answer> answersBySymptomId,
+                                              List<Integer> correctOrder) {
+        int size = answersBySymptomId.size();
+        Assertions.assertThat(correctOrder.size()).isEqualTo(size);
+
+        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(size);
+        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+                symptoms, diseaseSymptoms
+        );
+        Repository<Symptom> symptomRepository = TestUtils.repositoryFromList(symptoms);
+        Repository<Disease> diseaseRepository = TestUtils.repositoryFromList(diseases);
+
+        Map<Symptom, Answer> answerMap = fromAnswerListToAnswerMap(symptoms, answersBySymptomId);
+        Interaction interaction = TestUtils.interactionFromSymptomAnswerMap(answerMap);
+
+        List<Disease> correctDiseases = new ArrayList<>();
+        correctOrder.forEach(i -> correctDiseases.add(diseases.get(i)));
+
+        List<Disease> receivedDiseases = DiseaseDeterminantService.diseasesSortedByRelevance(
+                interaction,
+                symptomRepository,
+                diseaseRepository
+        );
+
+        Assertions.assertThat(receivedDiseases).isEqualTo(correctDiseases);
+    }
+
+    @ParameterizedTest
+    @MethodSource("testSortByRelevance_consistentWithMeasureProbability_Source")
+    public void testDiseasesSortedByRelevance_consistentWithMeasureProbability(List<List<Long>> diseaseSymptoms,
+                                                                               List<Answer> answersBySymptomId) {
+        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(answersBySymptomId.size());
+        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+                symptoms, diseaseSymptoms
+        );
+        Repository<Symptom> symptomRepository = TestUtils.repositoryFromList(symptoms);
+        Repository<Disease> diseaseRepository = TestUtils.repositoryFromList(diseases);
+
+        Map<Symptom, Answer> answerMap = fromAnswerListToAnswerMap(symptoms, answersBySymptomId);
+        Interaction interaction = TestUtils.interactionFromSymptomAnswerMap(answerMap);
+
+        List<Disease> correctDiseases = new ArrayList<>(diseases);
+        correctDiseases.sort((d1, d2) -> {
+            double prob1 = DiseaseDeterminantService.measureProbability(d1, answerMap);
+            double prob2 = DiseaseDeterminantService.measureProbability(d2, answerMap);
+            return -Double.compare(prob1, prob2);
+        });
+
+        List<Disease> receivedDiseases = DiseaseDeterminantService.diseasesSortedByRelevance(
+                interaction,
+                symptomRepository,
+                diseaseRepository
+        );
+
+        Assertions.assertThat(receivedDiseases).isEqualTo(correctDiseases);
+    }
 
 }
