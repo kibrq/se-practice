@@ -26,7 +26,10 @@ public class DiseaseTest {
                 {null, "", List.of(), null, null},
                 {0L, null, List.of(), null, null},
                 {0L, "Debil", null, null, null},
-                {0L, "You are Maxim", TestUtils.symptomsFromNames(List.of("0iq", "Tupovat")), null, TestUtils.symptomsFromNames(List.of("-3iq", "Sovsem ploh"))}
+                {0L, "You are Maxim", TestUtils.symptomsFromNames(List.of("0iq", "Tupovat")), null, TestUtils.symptomsFromNames(List.of("-3iq", "Sovsem ploh"))},
+                {0L, "You are Maxim", TestUtils.symptomsFromNames(List.of("0iq", "Tupovat")), "You are Maxim Suhodolski", null},
+                {0L, "You are Maxim", TestUtils.symptomsFromNames(List.of("0iq", "Tupovat")), "You are Maxim Suhodolski", TestUtils.symptomsFromNames(List.of("-3iq", "Sovsem ploh"))},
+                {1L, TestUtils.randomAlphabeticString(10), TestUtils.symptomsFromRandomNames(5), TestUtils.randomAlphabeticString(10), TestUtils.symptomsFromRandomNames(5)}
         };
     }
 

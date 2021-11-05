@@ -3,7 +3,7 @@ package ru.hse.akinator.model;
 import java.util.List;
 
 public class DiseaseImpl implements Disease {
-    private Long id;
+    private final Long id;
     private String name;
     private List<Symptom> symptoms;
 
