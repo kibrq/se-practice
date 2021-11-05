@@ -28,6 +28,9 @@ public class DoctorTypeImpl implements DoctorType {
 
     @Override
     public void setName(String newName) {
+        if (newName == null) {
+            throw new IllegalArgumentException("Doctor name cannot be null");
+        }
         name = newName;
     }
 
@@ -38,6 +41,9 @@ public class DoctorTypeImpl implements DoctorType {
 
     @Override
     public void setDiseases(Set<Disease> newDiseases) {
+        if (newDiseases == null) {
+            throw new IllegalArgumentException("Doctor diseases cannot be null");
+        }
         diseases = newDiseases;
     }
 
