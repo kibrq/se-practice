@@ -20,6 +20,6 @@ public class DoctorService {
     }
 
     public static Doctor getLessBusynessDoctor(Disease disease, Repository<Doctor> doctorRepository) {
-        throw new UnsupportedOperationException();
+        return null;
     }
 }
