@@ -11,7 +11,12 @@ public class DiseaseTest {
 
     public static Object[][] testGetters_Source() {
         return new Object[][] {
-                {null, null, null}
+                {null, null, null},
+                {null, "", List.of()},
+                {0L, null, List.of()},
+                {0L, "Debil", null},
+                {0L, "You are Maxim", List.of("0iq", "Tupovat")},
+                {1L, "", TestUtils.randomListOfAlphabeticStrings(5, 10)}
         };
     }
 
