@@ -1,6 +1,8 @@
 package ru.hse.akinator;
 
+import org.junit.jupiter.params.provider.EnumSource;
 import ru.hse.akinator.model.*;
+import ru.hse.akinator.repository.Repository;
 
 import java.util.*;
 import java.util.function.Function;
@@ -35,6 +37,30 @@ public class TestUtils {
         return IntStream.range(0, size)
                 .mapToObj(id -> create.apply((long) id))
                 .collect(Collectors.toList());
+    }
+
+    public static <T extends Model> Repository<T> unmodifiableRepository(List<T> models) {
+        return new Repository<>() {
+            @Override
+            public List<T> getAll() {
+                return models;
+            }
+
+            @Override
+            public T getById(Long id) {
+                for (var model : models) {
+                    if (Objects.equals(model.getId(), id)) {
+                        return model;
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            public boolean add(T value) {
+                return false;
+            }
+        };
     }
 
 

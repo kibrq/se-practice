@@ -8,6 +8,7 @@ import ru.hse.akinator.TestUtils;
 import ru.hse.akinator.model.Disease;
 import ru.hse.akinator.model.Doctor;
 import ru.hse.akinator.model.DoctorType;
+import ru.hse.akinator.repository.Repository;
 
 import java.util.HashSet;
 import java.util.List;
@@ -66,6 +67,32 @@ public class DoctorServiceTest {
                 .map(allDoctors::get)
                 .collect(Collectors.toSet());
         Set<Doctor> actual = new HashSet<>(actualDoctors);
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    public static Object[][] testGetLessBusinessDoctor_Source() {
+        return new Object[][]{
+                {List.of(List.of(0L, 1L, 2L)), List.of(), List.of(), 0, -1},
+        };
+    }
+
+    @ParameterizedTest
+    @MethodSource("testGetLessBusinessDoctor_Source")
+    public void testGetLessBusinessDoctor(
+            List<List<Long>> doctorTypeDiseaseDependencies,
+            List<Long> doctorDoctorTypeDependencies,
+            List<Double> businesses,
+            int diseaseNumber,
+            int doctorNumber
+    ) {
+        List<Disease> allDiseases = TestUtils.randomDiseases(10, 10);
+        List<DoctorType> allDoctorTypes = TestUtils.doctorTypesWithRandomNames(allDiseases, doctorTypeDiseaseDependencies);
+        List<Doctor> allDoctors = TestUtils.doctors(allDoctorTypes, doctorDoctorTypeDependencies, businesses);
+        Repository<Doctor> doctorRepository = TestUtils.unmodifiableRepository(allDoctors);
+
+        Doctor expected = doctorNumber == -1 ? null : allDoctors.get(doctorNumber);
+        Doctor actual = DoctorService.getLessBusynessDoctor(allDiseases.get(diseaseNumber), doctorRepository);
+
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 }
