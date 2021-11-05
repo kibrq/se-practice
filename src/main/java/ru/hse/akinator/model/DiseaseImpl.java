@@ -23,7 +23,10 @@ public class DiseaseImpl implements Disease {
 
     @Override
     public void setName(String name) {
-
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+        this.name = name;
     }
 
     @Override
@@ -33,7 +36,10 @@ public class DiseaseImpl implements Disease {
 
     @Override
     public void setSymptoms(List<Symptom> symptoms) {
-
+        if (symptoms == null) {
+            throw new IllegalArgumentException();
+        }
+        this.symptoms = symptoms;
     }
 
     @Override
