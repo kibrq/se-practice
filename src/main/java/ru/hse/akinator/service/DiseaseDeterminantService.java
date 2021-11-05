@@ -57,6 +57,9 @@ public class DiseaseDeterminantService {
     }
 
     public static List<Disease> diseasesSortedByRelevance(Interaction interaction, Repository<Symptom> symptomRepository, Repository<Disease> diseaseRepository) {
-        throw new UnsupportedOperationException();
+        Map<Symptom, Answer> answerBySymptom = interaction.askAboutSymptoms(symptomRepository.getAll());
+        List<Disease> diseases = diseaseRepository.getAll();
+        sortByRelevance(diseases, answerBySymptom);
+        return diseases;
     }
 }
