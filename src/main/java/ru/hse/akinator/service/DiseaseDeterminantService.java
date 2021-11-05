@@ -18,10 +18,18 @@ public class DiseaseDeterminantService {
             String name = entry.getKey().getName();
             boolean isSymptomInDisease = disease.getSymptoms().stream().anyMatch(symptom -> Objects.equals(symptom.getName(), name));
             switch (entry.getValue()) {
-                case DEFINITELY_YES -> counter += isSymptomInDisease ? 2 : -2;
-                case MORE_YES_THAN_NO -> counter += isSymptomInDisease ? 1 : -1;
-                case MORE_NO_THAN_YES -> counter += isSymptomInDisease ? -1 : 1;
-                case DEFINITELY_NO -> counter += isSymptomInDisease ? -2 : 2;
+                case DEFINITELY_YES:
+                    counter += isSymptomInDisease ? 2 : -2;
+                    break;
+                case MORE_YES_THAN_NO:
+                    counter += isSymptomInDisease ? 1 : -1;
+                    break;
+                case MORE_NO_THAN_YES:
+                    counter += isSymptomInDisease ? -1 : 1;
+                    break;
+                case DEFINITELY_NO:
+                    counter += isSymptomInDisease ? -2 : 2;
+                    break;
             }
         }
         return (1 + (double) (counter) / (answerBySymptoms.size() * 2)) / 2;
