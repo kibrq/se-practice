@@ -15,7 +15,7 @@ public class DiseaseTest {
                 {null, "", List.of()},
                 {0L, null, List.of()},
                 {0L, "Debil", null},
-                {0L, "You are Maxim", List.of(Symptom.create(0L, "0iq"), Symptom.create(1L, "Tupovat"))},
+                {0L, "You are Maxim", TestUtils.symptomsFromNames(List.of("0iq", "Tupovat"))},
                 {1L, "", TestUtils.symptomsFromRandomNames(5)}
         };
     }
