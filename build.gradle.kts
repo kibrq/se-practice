@@ -1,6 +1,7 @@
 plugins {
     java
 	checkstyle
+	jacoco
 }
 
 group = "ru.hse"
@@ -20,4 +21,11 @@ dependencies {
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks.test {
+	finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+tasks.jacocoTestReport {
+	dependsOn(tasks.test) // tests are required to run before generating the report
 }
