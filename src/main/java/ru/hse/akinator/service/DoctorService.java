@@ -20,6 +20,9 @@ public class DoctorService {
     }
 
     public static Doctor getLessBusynessDoctor(Disease disease, Repository<Doctor> doctorRepository) {
-        return null;
+        return doctorRepository.getAll().stream()
+                .filter(doctor -> doctor.getType().getDiseases().contains(disease))
+                .reduce((d1, d2) -> d1.getBusyness() < d2.getBusyness() ? d1 : d2)
+                .orElse(null);
     }
 }
