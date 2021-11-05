@@ -2,7 +2,7 @@ package ru.hse.akinator.model;
 
 public interface Doctor extends Model {
     static Doctor create(Long id, String name, DoctorType doctorType, double busyness) {
-        throw new UnsupportedOperationException();
+        return new DoctorImpl(id, name, doctorType, busyness);
     }
 
     String getName();
