@@ -3,7 +3,11 @@ package ru.hse.akinator.interaction;
 import ru.hse.akinator.model.Answer;
 import ru.hse.akinator.model.Symptom;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.PrintStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;

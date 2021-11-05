@@ -16,7 +16,7 @@ public class DoctorTypeTest {
                 {0L, null, Set.of()},
                 {0L, "", null},
                 {0L, "", Set.of()},
-                {1L, "Jack", TestUtils.randomDiseasesAsSet(10, 3)}
+                {1L, "Jack", TestUtils.diseasesAsSet(10, 3)}
         };
     }
 
@@ -40,8 +40,8 @@ public class DoctorTypeTest {
                 {0L, "", Set.of(), "", Set.of()},
                 {0L, "a", Set.of(), "", Set.of()},
                 {0L, "", Set.of(), "a", Set.of()},
-                {0L, "", Set.of(), "a", TestUtils.randomDiseasesAsSet(10, 1)},
-                {0L, "a", TestUtils.randomDiseasesAsSet(10, 3), "b", TestUtils.randomDiseasesAsSet(10, 3)}
+                {0L, "", Set.of(), "a", TestUtils.diseasesAsSet(10, 1)},
+                {0L, "a", TestUtils.diseasesAsSet(10, 3), "b", TestUtils.diseasesAsSet(10, 3)}
         };
     }
 

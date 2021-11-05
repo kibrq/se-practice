@@ -7,7 +7,6 @@ import ru.hse.akinator.TestUtils;
 
 import ru.hse.akinator.model.Symptom;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class RepositoryTest {
 
 	public static Object[][] test_Source() {
 		return new Object[][]{
-				{TestUtils.symptomsFromRandomNames(10)}
+				{TestUtils.symptoms(10)}
 		};
 	}
 

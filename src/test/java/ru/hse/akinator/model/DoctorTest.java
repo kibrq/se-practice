@@ -9,11 +9,11 @@ public class DoctorTest {
     public static Object[][] testGetters_Source() {
         return new Object[][] {
                 {null, null, null, -1},
-                {null, "", TestUtils.doctorTypeWithRandomName(), 1},
-                {0L, null, TestUtils.doctorTypeWithRandomName(), 1},
+                {null, "", TestUtils.doctorType(), 1},
+                {0L, null, TestUtils.doctorType(), 1},
                 {0L, "", null, 1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), -1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), 1},
+                {0L, "", TestUtils.doctorType(), -1},
+                {0L, "", TestUtils.doctorType(), 1},
         };
     }
 
@@ -35,14 +35,14 @@ public class DoctorTest {
     public static Object[][] testSettersAndGetters_Source() {
         return new Object[][] {
                 {null, null, null, -1, null, null, -1},
-                {null, "", TestUtils.doctorTypeWithRandomName(), 1, null, null, -1},
-                {0L, null, TestUtils.doctorTypeWithRandomName(), 1, null, null, -1},
+                {null, "", TestUtils.doctorType(), 1, null, null, -1},
+                {0L, null, TestUtils.doctorType(), 1, null, null, -1},
                 {0L, "", null, 1, null, null, -1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), -1, null, null, -1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), 1, null, null, -1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), 1, "a", null, -1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), 1, "a", TestUtils.doctorTypeWithRandomName(), -1},
-                {0L, "", TestUtils.doctorTypeWithRandomName(), 1, "a", TestUtils.doctorTypeWithRandomName(), 2},
+                {0L, "", TestUtils.doctorType(), -1, null, null, -1},
+                {0L, "", TestUtils.doctorType(), 1, null, null, -1},
+                {0L, "", TestUtils.doctorType(), 1, "a", null, -1},
+                {0L, "", TestUtils.doctorType(), 1, "a", TestUtils.doctorType(), -1},
+                {0L, "", TestUtils.doctorType(), 1, "a", TestUtils.doctorType(), 2},
         };
     }
 

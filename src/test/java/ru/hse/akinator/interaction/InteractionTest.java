@@ -20,7 +20,7 @@ public class InteractionTest {
         return new Object[][]{
                 {null, null, null, null},
                 {new ByteArrayInputStream("DEFINITELY_YES\n".getBytes()), new PrintStream(new ByteArrayOutputStream()), null, Answer.DEFINITELY_YES},
-                {new ByteArrayInputStream("DEFINITELY_YES\n".getBytes()), new PrintStream(new ByteArrayOutputStream()), TestUtils.symptomsFromNames(List.of("kek")).get(0), Answer.DEFINITELY_YES}
+                {new ByteArrayInputStream("DEFINITELY_YES\n".getBytes()), new PrintStream(new ByteArrayOutputStream()), TestUtils.symptoms(List.of("kek")).get(0), Answer.DEFINITELY_YES}
         };
     }
 
@@ -43,7 +43,7 @@ public class InteractionTest {
         return new Object[][]{
                 {null, null, null, null},
                 {new ByteArrayInputStream("DEFINITELY_YES\nIDK\n".getBytes()), new PrintStream(new ByteArrayOutputStream()), null, List.of(Answer.DEFINITELY_YES, Answer.IDK)},
-                {new ByteArrayInputStream("DEFINITELY_YES\nIDK\n".getBytes()), new PrintStream(new ByteArrayOutputStream()), TestUtils.symptomsFromNames(List.of("kek", "lol")), List.of(Answer.DEFINITELY_YES, Answer.IDK)}
+                {new ByteArrayInputStream("DEFINITELY_YES\nIDK\n".getBytes()), new PrintStream(new ByteArrayOutputStream()), TestUtils.symptoms(List.of("kek", "lol")), List.of(Answer.DEFINITELY_YES, Answer.IDK)}
         };
     }
 

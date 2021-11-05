@@ -30,8 +30,8 @@ public class DoctorServiceTest {
     @ParameterizedTest
     @MethodSource("testGetAllRelevantTypes_Source")
     public void testGetAllRelevantTypes(List<List<Long>> doctorTypeDiseaseDependencies, Integer diseaseNumber, List<Integer> relevantDoctorTypeNumbers) {
-        List<Disease> allDiseases = TestUtils.randomDiseases(10, 10);
-        List<DoctorType> allDoctorTypes = TestUtils.doctorTypesWithRandomNames(allDiseases, doctorTypeDiseaseDependencies);
+        List<Disease> allDiseases = TestUtils.diseases(10, 10);
+        List<DoctorType> allDoctorTypes = TestUtils.doctorTypes(allDiseases, doctorTypeDiseaseDependencies);
 
         List<DoctorType> actualDoctorTypes = DoctorService.getAllRelevantTypes(allDoctorTypes, allDiseases.get(diseaseNumber));
 
@@ -55,8 +55,8 @@ public class DoctorServiceTest {
     @ParameterizedTest
     @MethodSource("testGetAllRelevantDoctors_Source")
     public void testGetAllRelevantDoctors(List<Long> doctorDoctorTypeDependencies, List<Integer> testedDoctorTypeNumbers, List<Integer> relevantDoctorNumbers) {
-        List<Disease> allDiseases = TestUtils.randomDiseases(10, 10);
-        List<DoctorType> allDoctorTypes = TestUtils.doctorTypesWithRandomNames(allDiseases, 10);
+        List<Disease> allDiseases = TestUtils.diseases(10, 10);
+        List<DoctorType> allDoctorTypes = TestUtils.doctorTypes(allDiseases, 10);
         List<Doctor> allDoctors = TestUtils.doctors(allDoctorTypes, doctorDoctorTypeDependencies);
 
         List<Doctor> actualDoctors = DoctorService.getAllRelevantDoctors(
@@ -89,10 +89,10 @@ public class DoctorServiceTest {
             int diseaseNumber,
             int doctorNumber
     ) {
-        List<Disease> allDiseases = TestUtils.randomDiseases(10, 10);
-        List<DoctorType> allDoctorTypes = TestUtils.doctorTypesWithRandomNames(allDiseases, doctorTypeDiseaseDependencies);
+        List<Disease> allDiseases = TestUtils.diseases(10, 10);
+        List<DoctorType> allDoctorTypes = TestUtils.doctorTypes(allDiseases, doctorTypeDiseaseDependencies);
         List<Doctor> allDoctors = TestUtils.doctors(allDoctorTypes, doctorDoctorTypeDependencies, businesses);
-        Repository<Doctor> doctorRepository = TestUtils.unmodifiableRepository(allDoctors);
+        Repository<Doctor> doctorRepository = TestUtils.repositoryFromList(allDoctors);
 
         Doctor expected = doctorNumber == -1 ? null : allDoctors.get(doctorNumber);
         Doctor actual = DoctorService.getLessBusynessDoctor(allDiseases.get(diseaseNumber), doctorRepository);

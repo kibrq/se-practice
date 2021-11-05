@@ -11,7 +11,10 @@ import ru.hse.akinator.model.Disease;
 import ru.hse.akinator.model.Symptom;
 import ru.hse.akinator.repository.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class DiseaseDeterminantServiceTest {
@@ -51,8 +54,8 @@ public class DiseaseDeterminantServiceTest {
     public void testMeasureProbability_firstDiseaseIsGreaterThanSecond(List<Long> firstDiseaseSymptoms,
                                                                        List<Long> secondDiseaseSymptoms,
                                                                        List<Answer> answersBySymptomId) {
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(answersBySymptomId.size());
-        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+        List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
+        List<Disease> diseases = TestUtils.diseases(
                 symptoms, List.of(firstDiseaseSymptoms, secondDiseaseSymptoms)
         );
 
@@ -94,8 +97,8 @@ public class DiseaseDeterminantServiceTest {
                                                                       List<Answer> secondAnswers) {
         Assertions.assertThat(firstAnswers.size()).isEqualTo(secondAnswers.size());
 
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(firstAnswers.size());
-        Disease disease = TestUtils.diseasesFromSymptomsWithRandomNames(symptoms, List.of(diseaseSymptoms)).get(0);
+        List<Symptom> symptoms = TestUtils.symptoms(firstAnswers.size());
+        Disease disease = TestUtils.diseases(symptoms, List.of(diseaseSymptoms)).get(0);
         Map<Symptom, Answer> firstAnswerMap = fromAnswerListToAnswerMap(symptoms, firstAnswers);
         Map<Symptom, Answer> secondAnswerMap = fromAnswerListToAnswerMap(symptoms, secondAnswers);
 
@@ -133,8 +136,8 @@ public class DiseaseDeterminantServiceTest {
     public void testMeasureProbability_firstDiseaseIsEqualSecond(List<Long> firstDiseaseSymptoms,
                                                                  List<Long> secondDiseaseSymptoms,
                                                                  List<Answer> answersBySymptomId) {
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(answersBySymptomId.size());
-        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+        List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
+        List<Disease> diseases = TestUtils.diseases(
                 symptoms, List.of(firstDiseaseSymptoms, secondDiseaseSymptoms)
         );
 
@@ -176,8 +179,8 @@ public class DiseaseDeterminantServiceTest {
                                                                   List<Answer> secondAnswers) {
         Assertions.assertThat(firstAnswers.size()).isEqualTo(secondAnswers.size());
 
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(firstAnswers.size());
-        Disease disease = TestUtils.diseasesFromSymptomsWithRandomNames(symptoms, List.of(diseaseSymptoms)).get(0);
+        List<Symptom> symptoms = TestUtils.symptoms(firstAnswers.size());
+        Disease disease = TestUtils.diseases(symptoms, List.of(diseaseSymptoms)).get(0);
         Map<Symptom, Answer> firstAnswerMap = fromAnswerListToAnswerMap(symptoms, firstAnswers);
         Map<Symptom, Answer> secondAnswerMap = fromAnswerListToAnswerMap(symptoms, secondAnswers);
 
@@ -234,8 +237,8 @@ public class DiseaseDeterminantServiceTest {
         int size = answersBySymptomId.size();
         Assertions.assertThat(correctOrder.size()).isEqualTo(size);
 
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(size);
-        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+        List<Symptom> symptoms = TestUtils.symptoms(size);
+        List<Disease> diseases = TestUtils.diseases(
                 symptoms, diseaseSymptoms
         );
         List<Disease> correctDiseases = new ArrayList<>();
@@ -281,8 +284,8 @@ public class DiseaseDeterminantServiceTest {
     @MethodSource("testSortByRelevance_consistentWithMeasureProbability_Source")
     public void testSortByRelevance_consistentWithMeasureProbability(List<List<Long>> diseaseSymptoms,
                                                                      List<Answer> answersBySymptomId) {
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(answersBySymptomId.size());
-        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+        List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
+        List<Disease> diseases = TestUtils.diseases(
                 symptoms, diseaseSymptoms
         );
 
@@ -312,8 +315,8 @@ public class DiseaseDeterminantServiceTest {
         int size = answersBySymptomId.size();
         Assertions.assertThat(correctOrder.size()).isEqualTo(size);
 
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(size);
-        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+        List<Symptom> symptoms = TestUtils.symptoms(size);
+        List<Disease> diseases = TestUtils.diseases(
                 symptoms, diseaseSymptoms
         );
         Repository<Symptom> symptomRepository = TestUtils.repositoryFromList(symptoms);
@@ -338,8 +341,8 @@ public class DiseaseDeterminantServiceTest {
     @MethodSource("testSortByRelevance_consistentWithMeasureProbability_Source")
     public void testDiseasesSortedByRelevance_consistentWithMeasureProbability(List<List<Long>> diseaseSymptoms,
                                                                                List<Answer> answersBySymptomId) {
-        List<Symptom> symptoms = TestUtils.symptomsFromRandomNames(answersBySymptomId.size());
-        List<Disease> diseases = TestUtils.diseasesFromSymptomsWithRandomNames(
+        List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
+        List<Disease> diseases = TestUtils.diseases(
                 symptoms, diseaseSymptoms
         );
         Repository<Symptom> symptomRepository = TestUtils.repositoryFromList(symptoms);

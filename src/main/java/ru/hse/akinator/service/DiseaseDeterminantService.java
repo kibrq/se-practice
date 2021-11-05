@@ -7,7 +7,13 @@ import ru.hse.akinator.model.Disease;
 import ru.hse.akinator.model.Symptom;
 import ru.hse.akinator.repository.Repository;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
+
 
 public class DiseaseDeterminantService {
 

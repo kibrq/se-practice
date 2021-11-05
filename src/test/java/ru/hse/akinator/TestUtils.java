@@ -1,10 +1,23 @@
 package ru.hse.akinator;
 
 import ru.hse.akinator.interaction.Interaction;
-import ru.hse.akinator.model.*;
+import ru.hse.akinator.model.Model;
+import ru.hse.akinator.model.Symptom;
+import ru.hse.akinator.model.Disease;
+import ru.hse.akinator.model.Answer;
+import ru.hse.akinator.model.DoctorType;
+import ru.hse.akinator.model.Doctor;
+
 import ru.hse.akinator.repository.Repository;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Objects;
+import java.util.Collections;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,32 +52,7 @@ public class TestUtils {
                 .collect(Collectors.toList());
     }
 
-    public static <T extends Model> Repository<T> unmodifiableRepository(List<T> models) {
-        return new Repository<>() {
-            @Override
-            public List<T> getAll() {
-                return models;
-            }
-
-            @Override
-            public T getById(Long id) {
-                for (var model : models) {
-                    if (Objects.equals(model.getId(), id)) {
-                        return model;
-                    }
-                }
-                return null;
-            }
-
-            @Override
-            public boolean add(T value) {
-                return false;
-            }
-        };
-    }
-
-
-    public static List<Symptom> symptomsFromNames(List<String> names) {
+    public static List<Symptom> symptoms(List<String> names) {
         Function<Long, Symptom> create = id -> {
             var s = mock(Symptom.class);
             when(s.getId()).thenReturn(id);
@@ -74,13 +62,13 @@ public class TestUtils {
         return createWithIds(create, names.size());
     }
 
-    public static List<Symptom> symptomsFromRandomNames(int size) {
-        return symptomsFromNames(
+    public static List<Symptom> symptoms(int size) {
+        return symptoms(
                 randomListOfAlphabeticStrings(size, 4)
         );
     }
 
-    public static List<Disease> diseasesFromSymptoms(List<Symptom> allSymptoms, List<String> names, List<List<Long>> ids) {
+    public static List<Disease> diseases(List<Symptom> allSymptoms, List<String> names, List<List<Long>> ids) {
         if (names.size() != ids.size()) {
             throw new IllegalArgumentException();
         }
@@ -102,12 +90,12 @@ public class TestUtils {
         return createWithIds(create, names.size());
     }
 
-    public static List<Disease> diseasesFromSymptomsWithRandomNames(List<Symptom> allSymptoms, List<List<Long>> ids) {
-        return diseasesFromSymptoms(allSymptoms, randomListOfAlphabeticStrings(ids.size(), 4), ids);
+    public static List<Disease> diseases(List<Symptom> allSymptoms, List<List<Long>> ids) {
+        return diseases(allSymptoms, randomListOfAlphabeticStrings(ids.size(), 4), ids);
     }
 
-    public static List<Disease> randomDiseases(int nSymptoms, int nDiseases) {
-        List<Symptom> symptoms = symptomsFromRandomNames(nSymptoms);
+    public static List<Disease> diseases(int nSymptoms, int nDiseases) {
+        List<Symptom> symptoms = symptoms(nSymptoms);
         List<Long> ids = LongStream.range(0, nSymptoms).boxed().collect(Collectors.toList());
         List<List<Long>> idSymptoms = Stream.generate(() -> {
                     Collections.shuffle(ids);
@@ -115,23 +103,23 @@ public class TestUtils {
                 })
                 .limit(nDiseases)
                 .collect(Collectors.toList());
-        return diseasesFromSymptomsWithRandomNames(symptoms, idSymptoms);
+        return diseases(symptoms, idSymptoms);
     }
 
-    public static Set<Disease> randomDiseasesAsSet(int nSymptoms, int nDiseases) {
-        return new HashSet<>(randomDiseases(nSymptoms, nDiseases));
+    public static Set<Disease> diseasesAsSet(int nSymptoms, int nDiseases) {
+        return new HashSet<>(diseases(nSymptoms, nDiseases));
     }
 
-    public static DoctorType doctorTypeWithRandomName() {
+    public static DoctorType doctorType() {
         var d = mock(DoctorType.class);
-        Set<Disease> diseases = randomDiseasesAsSet(5, 3);
+        Set<Disease> diseases = diseasesAsSet(5, 3);
         when(d.getDiseases()).thenReturn(diseases);
         when(d.getName()).thenReturn(randomAlphabeticString(4));
         when(d.getId()).thenReturn(1L);
         return d;
     }
 
-    public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, List<String> names, List<List<Long>> ids) {
+    public static List<DoctorType> doctorTypes(List<Disease> allDiseases, List<List<Long>> doctorTypeDiseaseDependencies, List<String> names) {
 
         Map<Long, Disease> diseasesById = allDiseases.stream().collect(
                 Collectors.toMap(
@@ -143,7 +131,7 @@ public class TestUtils {
             var d = mock(DoctorType.class);
             when(d.getId()).thenReturn(id);
             when(d.getDiseases()).thenReturn(
-                    ids.get(id.intValue()).stream()
+                    doctorTypeDiseaseDependencies.get(id.intValue()).stream()
                             .map(diseasesById::get)
                             .collect(Collectors.toSet())
             );
@@ -154,12 +142,12 @@ public class TestUtils {
         return createWithIds(create, names.size());
     }
 
-    public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, List<List<Long>> ids) {
+    public static List<DoctorType> doctorTypes(List<Disease> allDiseases, List<List<Long>> ids) {
         List<String> names = randomListOfAlphabeticStrings(ids.size(), 4);
-        return doctorTypesWithRandomNames(allDiseases, names, ids);
+        return doctorTypes(allDiseases, ids, names);
     }
 
-    public static List<DoctorType> doctorTypesWithRandomNames(List<Disease> allDiseases, int nDoctorTypes) {
+    public static List<DoctorType> doctorTypes(List<Disease> allDiseases, int nDoctorTypes) {
         List<Long> ids = allDiseases.stream().map(Model::getId).collect(Collectors.toList());
         List<List<Long>> doctorTypeDiseaseDependencies = Stream.generate(() -> {
                     Collections.shuffle(ids);
@@ -167,7 +155,7 @@ public class TestUtils {
                 })
                 .limit(nDoctorTypes)
                 .collect(Collectors.toList());
-        return doctorTypesWithRandomNames(allDiseases, doctorTypeDiseaseDependencies);
+        return doctorTypes(allDiseases, doctorTypeDiseaseDependencies);
     }
 
     public static List<Doctor> doctors(List<String> names, List<DoctorType> allDoctorTypes, List<Long> doctorTypesIds, List<Double> businesses) {
