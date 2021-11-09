@@ -4,7 +4,7 @@
 
 Disease Akinator is a web application that determines a person's disease based on a short survey similar to [Akinator](https://akinator.com/).
 
-It also helps to find relevant tests to take and doctors.
+The app can also help you make an appointment with a doctor who specializes in certain diseases.
 
 ## Presentation
 
