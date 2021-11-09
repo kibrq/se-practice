@@ -1,12 +1,7 @@
 package ru.hse.akinator;
 
 import ru.hse.akinator.interaction.Interaction;
-import ru.hse.akinator.model.Model;
-import ru.hse.akinator.model.Symptom;
-import ru.hse.akinator.model.Disease;
-import ru.hse.akinator.model.Answer;
-import ru.hse.akinator.model.DoctorType;
-import ru.hse.akinator.model.Doctor;
+import ru.hse.akinator.model.*;
 
 import ru.hse.akinator.repository.Repository;
 
@@ -67,6 +62,44 @@ public class TestUtils {
                 randomListOfAlphabeticStrings(size, 4)
         );
     }
+
+	public static List<Drug> drugs(List<Disease> allDiseases, List<String> names, List<List<Long>> ids) {
+		if (names.size() != ids.size()) {
+			throw new IllegalArgumentException();
+		}
+
+		Map<Long, Disease> diseaseById = allDiseases.stream().collect(Collectors.toMap(
+				Model::getId, Function.identity()
+		));
+
+		Function<Long, Drug> create = id -> {
+			var d = mock(Drug.class);
+			when(d.getDiseases()).thenReturn(ids.get(id.intValue()).stream()
+					.map(diseaseById::get)
+					.collect(Collectors.toList()));
+			when(d.getName()).thenReturn(names.get(id.intValue()));
+			when(d.getId()).thenReturn(id);
+			return d;
+		};
+
+		return createWithIds(create, names.size());
+	}
+
+	public static List<Drug> drugs(List<Disease> allDiseases, List<List<Long>> ids) {
+		return drugs(allDiseases, randomListOfAlphabeticStrings(ids.size(), 4), ids);
+	}
+
+	public static List<Drug> drugs(int nDrugs) {
+		List<Disease> symptoms = diseases(5, 5);
+		List<Long> ids = LongStream.range(0, 5).boxed().collect(Collectors.toList());
+		List<List<Long>> idSymptoms = Stream.generate(() -> {
+					Collections.shuffle(ids);
+					return ids.subList(0, random.nextInt(5 - 1) + 1);
+				})
+				.limit(nDrugs)
+				.collect(Collectors.toList());
+		return drugs(symptoms, idSymptoms);
+	}
 
     public static List<Disease> diseases(List<Symptom> allSymptoms, List<String> names, List<List<Long>> ids) {
         if (names.size() != ids.size()) {
