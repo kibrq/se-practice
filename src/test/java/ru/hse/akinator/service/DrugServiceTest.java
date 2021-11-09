@@ -5,7 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.hse.akinator.TestUtils;
 import ru.hse.akinator.model.Disease;
-import ru.hse.akinator.model.DoctorType;
 import ru.hse.akinator.model.Drug;
 import ru.hse.akinator.repository.Repository;
 
