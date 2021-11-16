@@ -33,13 +33,14 @@ public class InteractionImpl implements Interaction {
             throw new IllegalArgumentException();
         }
         printStream.print(questionFormatter.apply(s));
-        String answer;
+        Answer answer = Answer.IDK;
         try {
-            answer = reader.readLine();
-        } catch (IOException e) {
+            String string = reader.readLine();
+			Answer.valueOf(string);
+        } catch (IOException | IllegalArgumentException e) {
             return Answer.IDK;
         }
-        return Answer.valueOf(answer);
+        return answer;
     }
 
     @Override
