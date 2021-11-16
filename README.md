@@ -17,13 +17,30 @@ This project is a part of a Software Engineering course at Higher School of Econ
 ## Usage
 
 To run the application use:
-```
+```bash
 ./gradlew run
 ```
 To run all the tests use:
-```
+```basjh
 ./gradlew test
 ```
+
+## Docker
+
+To build the application and run tests with docker use:
+```bash
+docker build -t build-akinator -f dockerfile/build.Dockerfile .
+```
+
+To run the application first build the `akinator-minimal` docker image:
+```bash
+docker build -t akinator-minimal -f dockerfile/akinator-minimal.Dockerfile .
+```
+Then run the `akinator-minimal` image:
+```bash
+docker run akinator-minimal
+```
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
