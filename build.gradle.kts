@@ -23,6 +23,12 @@ tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
 
+tasks.withType<Jar> {
+	manifest {
+		attributes["Main-Class"] = "ru.hse.akinator.Akinator"
+	}
+}
+
 tasks.test {
 	finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
