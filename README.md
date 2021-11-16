@@ -34,7 +34,7 @@ docker build -t build-akinator -f dockerfile/build.Dockerfile .
 
 To run the application first build the `akinator-minimal` docker image:
 ```bash
-docker build -t akinator-minimal -f dockerfile/akinator-minimal.Dockerfile .
+docker build -t akinator-minimal -f dockerfile/minimal.Dockerfile .
 ```
 Then run the `akinator-minimal` image:
 ```bash
