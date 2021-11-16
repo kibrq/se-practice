@@ -6,11 +6,14 @@ public interface Doctor extends Model {
     }
 
     String getName();
+
     void setName(String name);
 
     DoctorType getType();
+
     void setType(DoctorType type);
 
     double getBusyness();
+
     void setBusyness(double busyness);
 }

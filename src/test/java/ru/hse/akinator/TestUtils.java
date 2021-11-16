@@ -160,12 +160,12 @@ public class TestUtils {
 
     public static List<Doctor> doctors(List<String> names, List<DoctorType> allDoctorTypes, List<Long> doctorTypesIds, List<Double> businesses) {
         Function<Long, Doctor> create = id -> {
-          var d = mock(Doctor.class);
-          when(d.getId()).thenReturn(id);
-          when(d.getName()).thenReturn(names.get(id.intValue()));
-          when(d.getType()).thenReturn(allDoctorTypes.get(doctorTypesIds.get(id.intValue()).intValue()));
-          when(d.getBusyness()).thenReturn(businesses.get(id.intValue()));
-          return d;
+            var d = mock(Doctor.class);
+            when(d.getId()).thenReturn(id);
+            when(d.getName()).thenReturn(names.get(id.intValue()));
+            when(d.getType()).thenReturn(allDoctorTypes.get(doctorTypesIds.get(id.intValue()).intValue()));
+            when(d.getBusyness()).thenReturn(businesses.get(id.intValue()));
+            return d;
         };
 
         return createWithIds(create, names.size());
@@ -179,7 +179,7 @@ public class TestUtils {
     public static List<Doctor> doctors(List<DoctorType> allDoctorTypes, List<Long> doctorTypeIds) {
         List<Double> businesses = random.doubles().limit(doctorTypeIds.size()).boxed().collect(Collectors.toList());
         return doctors(allDoctorTypes, doctorTypeIds, businesses);
-	}
+    }
 
     public static <T extends Model> Repository<T> repositoryFromList(List<T> items) {
         return new Repository<>() {
@@ -218,6 +218,6 @@ public class TestUtils {
                 symptoms.forEach(s -> result.put(s, map.get(s)));
                 return result;
             }
-		};
+        };
     }
 }
