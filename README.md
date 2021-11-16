@@ -41,6 +41,12 @@ Then run the `akinator-minimal` image:
 docker run -it akinator-minimal
 ```
 
+Pre-built images can be found [here](https://hub.docker.com/repository/docker/kibrq/akinator).
+
+To run a pre-built image use:
+```bash
+docker run -it kibrq/akinator
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
