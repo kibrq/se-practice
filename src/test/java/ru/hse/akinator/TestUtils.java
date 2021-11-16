@@ -1,8 +1,14 @@
 package ru.hse.akinator;
 
 import ru.hse.akinator.interaction.Interaction;
-import ru.hse.akinator.model.*;
 
+import ru.hse.akinator.model.Disease;
+import ru.hse.akinator.model.Drug;
+import ru.hse.akinator.model.Model;
+import ru.hse.akinator.model.Symptom;
+import ru.hse.akinator.model.Doctor;
+import ru.hse.akinator.model.DoctorType;
+import ru.hse.akinator.model.Answer;
 import ru.hse.akinator.repository.Repository;
 
 import java.util.List;
