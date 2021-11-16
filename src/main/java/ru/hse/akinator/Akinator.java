@@ -6,7 +6,10 @@ import ru.hse.akinator.model.Symptom;
 import ru.hse.akinator.repository.Repository;
 import ru.hse.akinator.service.DiseaseDeterminantService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -33,7 +36,7 @@ public class Akinator {
 		Repository<Disease> diseaseRepository = Repository.create(Disease.class);
 		List<String> diseaseNames = List.of("cancer", "acute navel failure", "yet another disease", "rab jetbrains");
 		List<Symptom> allSymptoms = symptomRepository.getAll();
-		Random random = new Random();
+		Random random = new Random(239);
 
 		IntStream.range(0, diseaseNames.size()).forEach(id -> {
 			var disease = Disease.create((long) id, diseaseNames.get(id), randomSubList(random, allSymptoms));
