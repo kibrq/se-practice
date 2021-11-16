@@ -7,7 +7,7 @@ import ru.hse.akinator.TestUtils;
 
 public class DoctorTest {
     public static Object[][] testGetters_Source() {
-        return new Object[][] {
+        return new Object[][]{
                 {null, null, null, -1},
                 {null, "", TestUtils.doctorType(), 1},
                 {0L, null, TestUtils.doctorType(), 1},
@@ -33,7 +33,7 @@ public class DoctorTest {
     }
 
     public static Object[][] testSettersAndGetters_Source() {
-        return new Object[][] {
+        return new Object[][]{
                 {null, null, null, -1, null, null, -1},
                 {null, "", TestUtils.doctorType(), 1, null, null, -1},
                 {0L, null, TestUtils.doctorType(), 1, null, null, -1},
