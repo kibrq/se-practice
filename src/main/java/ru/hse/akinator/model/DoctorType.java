@@ -8,8 +8,10 @@ public interface DoctorType extends Model {
     }
 
     String getName();
+
     void setName(String name);
 
     Set<Disease> getDiseases();
+
     void setDiseases(Set<Disease> diseases);
 }

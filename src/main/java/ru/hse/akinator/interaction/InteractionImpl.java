@@ -43,7 +43,7 @@ public class InteractionImpl implements Interaction {
 
     @Override
     public Map<Symptom, Answer> askAboutSymptoms(List<Symptom> symptoms) {
-        if (symptoms == null)  {
+        if (symptoms == null) {
             throw new IllegalArgumentException();
         }
         return symptoms.stream().collect(

@@ -10,7 +10,7 @@ import java.util.Set;
 public class DoctorTypeTest {
 
     public static Object[][] testGetters_Source() {
-        return new Object[][] {
+        return new Object[][]{
                 {null, null, null},
                 {null, "", Set.of()},
                 {0L, null, Set.of()},
@@ -35,7 +35,7 @@ public class DoctorTypeTest {
     }
 
     public static Object[][] testSettersAndGetters_Source() {
-        return new Object[][] {
+        return new Object[][]{
                 {0L, "", Set.of(), null, null},
                 {0L, "", Set.of(), "", Set.of()},
                 {0L, "a", Set.of(), "", Set.of()},
