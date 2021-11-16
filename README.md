@@ -38,7 +38,7 @@ docker build -t akinator-minimal -f dockerfile/akinator-minimal.Dockerfile .
 ```
 Then run the `akinator-minimal` image:
 ```bash
-docker run akinator-minimal
+docker run -it akinator-minimal
 ```
 
 
