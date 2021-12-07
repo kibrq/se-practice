@@ -21,18 +21,11 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
 
     @Override
     public T getById(Long id) {
-        if (!data.containsKey(id)) {
-            return null;
-        }
-        return data.get(id);
+        return data.getOrDefault(id, null);
     }
 
     @Override
     public boolean add(T value) {
-        if (data.containsKey(value.getId())) {
-            return false;
-        }
-        data.put(value.getId(), value);
-        return true;
+        return data.putIfAbsent(value.getId(), value) == null;
     }
 }
