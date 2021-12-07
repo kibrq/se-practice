@@ -11,23 +11,19 @@ public class DrugTest {
 
 	public static Object[][] testGetters_Source() {
 		return new Object[][]{
-				{null, null, null},
-				{null, "", List.of()},
-				{0L, null, List.of()},
-				{0L, "", null},
+				{1L, "", List.of()},
+				{0L, "a", List.of()},
 				{0L, "Podorozhnik", TestUtils.diseases(3, 3)},
-				{1L, "", TestUtils.diseases(5, 5)}
+				{1L, TestUtils.randomAlphabeticString(3), TestUtils.diseases(5, 5)}
 		};
 	}
 
 	public static Object[][] testSetters_Source() {
 		return new Object[][]{
-				{null, null, null, null, null},
-				{null, "", List.of(), null, null},
-				{0L, null, List.of(), null, null},
-				{0L, "A", null, null, null},
-				{0L, "Podorozhnik", TestUtils.diseases(3, 3), null, TestUtils.diseases(3, 3)},
-				{0L, "Podorozhnik", TestUtils.diseases(3, 3), "A", null},
+				{1L, "", List.of(), "", List.of()},
+				{0L, "A", List.of(), "B", List.of()},
+				{0L, "Podorozhnik", TestUtils.diseases(3, 3), "", TestUtils.diseases(3, 3)},
+				{0L, "Podorozhnik", TestUtils.diseases(3, 3), "A", List.of()},
 				{0L, "Podorozhnik", TestUtils.diseases(3, 3), "A", TestUtils.diseases(3, 3)},
 				{1L, TestUtils.randomAlphabeticString(10), TestUtils.diseases(3, 3), TestUtils.randomAlphabeticString(10), TestUtils.diseases(3, 3)}
 		};
@@ -37,38 +33,28 @@ public class DrugTest {
 	@ParameterizedTest
 	@MethodSource("testGetters_Source")
 	public void testGetters(Long id, String name, List<Disease> diseases) {
-		if (id == null || name == null || diseases == null) {
-			Assertions.assertThatThrownBy(() -> Drug.create(id, name, diseases)).isInstanceOf(IllegalArgumentException.class);
-		} else {
-			Drug drug = Drug.create(id, name, diseases);
-			Assertions.assertThat(drug.getId()).isEqualTo(id);
-			Assertions.assertThat(drug.getName()).isEqualTo(name);
-			Assertions.assertThat(drug.getDiseases()).isEqualTo(diseases);
-		}
+		Drug drug = TestUtils.checkNullsAndApply(Drug::create, id, name, diseases);
+
+		Assertions.assertThat(drug.getId()).isEqualTo(id);
+		Assertions.assertThat(drug.getName()).isEqualTo(name);
+		Assertions.assertThat(drug.getDiseases()).isEqualTo(diseases);
+
 	}
 
 	@ParameterizedTest
 	@MethodSource("testSetters_Source")
 	public void testSetters(Long id, String name, List<Disease> diseases, String newName, List<Disease> newDiseases) {
-		if (id == null || name == null || diseases == null) {
-			Assertions.assertThatThrownBy(() -> Drug.create(id, name, diseases)).isInstanceOf(IllegalArgumentException.class);
-		} else {
-			Drug drug = Drug.create(id, name, diseases);
-			Assertions.assertThat(drug.getId()).isEqualTo(id);
-			Assertions.assertThat(drug.getName()).isEqualTo(name);
-			Assertions.assertThat(drug.getDiseases()).isEqualTo(diseases);
-			if (newName == null) {
-				Assertions.assertThatThrownBy(() -> drug.setName(newName)).isInstanceOf(IllegalArgumentException.class);
-			} else {
-				drug.setName(newName);
-				Assertions.assertThat(drug.getName()).isEqualTo(newName);
-			}
-			if (newDiseases == null) {
-				Assertions.assertThatThrownBy(() -> drug.setDiseases(newDiseases)).isInstanceOf(IllegalArgumentException.class);
-			} else {
-				drug.setDiseases(newDiseases);
-				Assertions.assertThat(drug.getDiseases()).isEqualTo(newDiseases);
-			}
-		}
+		Drug drug = TestUtils.checkNullsAndApply(Drug::create, id, name, diseases);
+
+		Assertions.assertThat(drug.getId()).isEqualTo(id);
+		Assertions.assertThat(drug.getName()).isEqualTo(name);
+		Assertions.assertThat(drug.getDiseases()).isEqualTo(diseases);
+
+		TestUtils.checkNullsAndConsume(drug::setName, newName);
+		TestUtils.checkNullsAndConsume(drug::setDiseases, newDiseases);
+
+		Assertions.assertThat(drug.getName()).isEqualTo(newName);
+		Assertions.assertThat(drug.getDiseases()).isEqualTo(newDiseases);
+		Assertions.assertThat(drug.getId()).isEqualTo(id);
 	}
 }

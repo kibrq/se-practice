@@ -1,5 +1,6 @@
 package ru.hse.akinator.service;
 
+
 import ru.hse.akinator.model.Disease;
 import ru.hse.akinator.model.Doctor;
 import ru.hse.akinator.model.DoctorType;

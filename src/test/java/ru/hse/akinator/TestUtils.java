@@ -1,8 +1,15 @@
 package ru.hse.akinator;
 
+import org.assertj.core.api.Assertions;
 import ru.hse.akinator.interaction.Interaction;
-import ru.hse.akinator.model.*;
 
+import ru.hse.akinator.model.Answer;
+import ru.hse.akinator.model.Disease;
+import ru.hse.akinator.model.Doctor;
+import ru.hse.akinator.model.DoctorType;
+import ru.hse.akinator.model.Drug;
+import ru.hse.akinator.model.Model;
+import ru.hse.akinator.model.Symptom;
 import ru.hse.akinator.repository.Repository;
 
 import java.util.List;
@@ -13,6 +20,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.HashMap;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -24,6 +33,38 @@ import static org.mockito.Mockito.when;
 
 public class TestUtils {
     private static final Random random = new Random();
+
+	public interface Function3<T1, T2, T3, R> {
+		R apply(T1 v1, T2 v2, T3 v3);
+	}
+
+	public static <T, V> T checkNullsAndApply(Function<V, T> function, V value) {
+		Assertions.assertThatThrownBy(() -> function.apply(null)).isInstanceOf(IllegalArgumentException.class);
+		return function.apply(value);
+	}
+
+	public static <T, T1, T2> T checkNullsAndApply(BiFunction<T1, T2, T> create, T1 value1, T2 value2){
+		Assertions.assertThatThrownBy(() -> create.apply(null, null)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> create.apply(null, value2)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> create.apply(value1, null)).isInstanceOf(IllegalArgumentException.class);
+		return create.apply(value1, value2);
+	}
+
+	public static <T, T1, T2, T3> T checkNullsAndApply(Function3<T1, T2, T3, T> function, T1 v1, T2 v2, T3 v3) {
+		Assertions.assertThatThrownBy(() -> function.apply(null, null, null)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> function.apply(null, v2, null)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> function.apply(v1, null, null)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> function.apply(null, null, v3)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> function.apply(v1, v2, null)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> function.apply(null, v2, v3)).isInstanceOf(IllegalArgumentException.class);
+		Assertions.assertThatThrownBy(() -> function.apply(v1, null, v3)).isInstanceOf(IllegalArgumentException.class);
+		return function.apply(v1, v2, v3);
+	}
+
+	public static <V> void checkNullsAndConsume(Consumer<V> consumer, V value) {
+		Assertions.assertThatThrownBy(() -> consumer.accept(null)).isInstanceOf(IllegalArgumentException.class);
+		consumer.accept(value);
+	}
 
     public static String randomAlphabeticString(int size) {
         int leftLimit = 97; // letter 'a'
