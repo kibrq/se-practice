@@ -1,19 +1,19 @@
 package ru.hse.akinator.model;
 
-import javax.print.Doc;
-
 public interface Doctor extends Model {
-    static Doctor create(Long id, String name, DoctorType doctorType, double busyness) {
-        throw new UnsupportedOperationException();
-    }
+	static Doctor create(Long id, String name, DoctorType doctorType, double busyness) {
+		return new DoctorImpl(id, name, doctorType, busyness);
+	}
 
-    String getName();
-    void setName(String name);
+	String getName();
 
-    DoctorType getType();
-    void setType(DoctorType type);
+	void setName(String name);
 
-    double getBusyness();
-    void setBusyness(double busyness);
+	DoctorType getType();
 
+	void setType(DoctorType type);
+
+	double getBusyness();
+
+	void setBusyness(double busyness);
 }

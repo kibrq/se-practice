@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Disease extends Model {
     static Disease create(Long id, String name, List<Symptom> symptoms) {
-        throw new UnsupportedOperationException();
+        return new DiseaseImpl(id, name, symptoms);
     }
 
     String getName();
