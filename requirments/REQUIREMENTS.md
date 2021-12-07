@@ -9,7 +9,7 @@ Doctors can edit their profile and manage their client appointments.
 Moderators can ban users and doctors and address controversial issues.
 
 ## Use case
-![use cases](https://github.com/kibrq/se-practice/blob/task-6/img/use-cases.png)
+![use cases](https://github.com/kibrq/se-practice/blob/task-4/img/use-cases.png)
 ## User stories
 
 #### User story №1
