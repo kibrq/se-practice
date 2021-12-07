@@ -34,58 +34,58 @@ import static org.mockito.Mockito.when;
 public class TestUtils {
     private static final Random random = new Random();
 
-	public interface Function3<T1, T2, T3, R> {
-		R apply(T1 v1, T2 v2, T3 v3);
-	}
+    public interface Function3<T1, T2, T3, R> {
+        R apply(T1 v1, T2 v2, T3 v3);
+    }
 
-	public static <T, V> T checkNullsAndApply(Function<V, T> function, V value) {
-		Assertions.assertThatThrownBy(() -> function.apply(null)).isInstanceOf(IllegalArgumentException.class);
-		return function.apply(value);
-	}
+    public static <T, V> T checkNullsAndApply(Function<V, T> function, V value) {
+        Assertions.assertThatThrownBy(() -> function.apply(null)).isInstanceOf(IllegalArgumentException.class);
+        return function.apply(value);
+    }
 
-	public static <T, T1, T2> T checkNullsAndApply(BiFunction<T1, T2, T> create, T1 value1, T2 value2){
-		Assertions.assertThatThrownBy(() -> create.apply(null, null)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> create.apply(null, value2)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> create.apply(value1, null)).isInstanceOf(IllegalArgumentException.class);
-		return create.apply(value1, value2);
-	}
+    public static <T, T1, T2> T checkNullsAndApply(BiFunction<T1, T2, T> create, T1 value1, T2 value2) {
+        Assertions.assertThatThrownBy(() -> create.apply(null, null)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> create.apply(null, value2)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> create.apply(value1, null)).isInstanceOf(IllegalArgumentException.class);
+        return create.apply(value1, value2);
+    }
 
-	public static <T, T1, T2, T3> T checkNullsAndApply(Function3<T1, T2, T3, T> function, T1 v1, T2 v2, T3 v3) {
-		Assertions.assertThatThrownBy(() -> function.apply(null, null, null)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> function.apply(null, v2, null)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> function.apply(v1, null, null)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> function.apply(null, null, v3)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> function.apply(v1, v2, null)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> function.apply(null, v2, v3)).isInstanceOf(IllegalArgumentException.class);
-		Assertions.assertThatThrownBy(() -> function.apply(v1, null, v3)).isInstanceOf(IllegalArgumentException.class);
-		return function.apply(v1, v2, v3);
-	}
+    public static <T, T1, T2, T3> T checkNullsAndApply(Function3<T1, T2, T3, T> function, T1 v1, T2 v2, T3 v3) {
+        Assertions.assertThatThrownBy(() -> function.apply(null, null, null)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> function.apply(null, v2, null)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> function.apply(v1, null, null)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> function.apply(null, null, v3)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> function.apply(v1, v2, null)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> function.apply(null, v2, v3)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> function.apply(v1, null, v3)).isInstanceOf(IllegalArgumentException.class);
+        return function.apply(v1, v2, v3);
+    }
 
-	public static <V> void checkNullsAndConsume(Consumer<V> consumer, V value) {
-		Assertions.assertThatThrownBy(() -> consumer.accept(null)).isInstanceOf(IllegalArgumentException.class);
-		consumer.accept(value);
-	}
+    public static <V> void checkNullsAndConsume(Consumer<V> consumer, V value) {
+        Assertions.assertThatThrownBy(() -> consumer.accept(null)).isInstanceOf(IllegalArgumentException.class);
+        consumer.accept(value);
+    }
 
     public static String randomAlphabeticString(int size) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
 
         return random.ints(leftLimit, rightLimit + 1)
-                .limit(size)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+            .limit(size)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
     }
 
     public static List<String> randomListOfAlphabeticStrings(int size, int stringSize) {
         return Stream.generate(() -> randomAlphabeticString(stringSize))
-                .limit(size)
-                .collect(Collectors.toList());
+            .limit(size)
+            .collect(Collectors.toList());
     }
 
     public static <T extends Model> List<T> createWithIds(Function<Long, T> create, int size) {
         return IntStream.range(0, size)
-                .mapToObj(id -> create.apply((long) id))
-                .collect(Collectors.toList());
+            .mapToObj(id -> create.apply((long) id))
+            .collect(Collectors.toList());
     }
 
     public static List<Symptom> symptoms(List<String> names) {
@@ -100,47 +100,47 @@ public class TestUtils {
 
     public static List<Symptom> symptoms(int size) {
         return symptoms(
-                randomListOfAlphabeticStrings(size, 4)
+            randomListOfAlphabeticStrings(size, 4)
         );
     }
 
-	public static List<Drug> drugs(List<Disease> allDiseases, List<String> names, List<List<Long>> ids) {
-		if (names.size() != ids.size()) {
-			throw new IllegalArgumentException();
-		}
+    public static List<Drug> drugs(List<Disease> allDiseases, List<String> names, List<List<Long>> ids) {
+        if (names.size() != ids.size()) {
+            throw new IllegalArgumentException();
+        }
 
-		Map<Long, Disease> diseaseById = allDiseases.stream().collect(Collectors.toMap(
-				Model::getId, Function.identity()
-		));
+        Map<Long, Disease> diseaseById = allDiseases.stream().collect(Collectors.toMap(
+            Model::getId, Function.identity()
+        ));
 
-		Function<Long, Drug> create = id -> {
-			var d = mock(Drug.class);
-			when(d.getDiseases()).thenReturn(ids.get(id.intValue()).stream()
-					.map(diseaseById::get)
-					.collect(Collectors.toList()));
-			when(d.getName()).thenReturn(names.get(id.intValue()));
-			when(d.getId()).thenReturn(id);
-			return d;
-		};
+        Function<Long, Drug> create = id -> {
+            var d = mock(Drug.class);
+            when(d.getDiseases()).thenReturn(ids.get(id.intValue()).stream()
+                .map(diseaseById::get)
+                .collect(Collectors.toList()));
+            when(d.getName()).thenReturn(names.get(id.intValue()));
+            when(d.getId()).thenReturn(id);
+            return d;
+        };
 
-		return createWithIds(create, names.size());
-	}
+        return createWithIds(create, names.size());
+    }
 
-	public static List<Drug> drugs(List<Disease> allDiseases, List<List<Long>> ids) {
-		return drugs(allDiseases, randomListOfAlphabeticStrings(ids.size(), 4), ids);
-	}
+    public static List<Drug> drugs(List<Disease> allDiseases, List<List<Long>> ids) {
+        return drugs(allDiseases, randomListOfAlphabeticStrings(ids.size(), 4), ids);
+    }
 
-	public static List<Drug> drugs(int nDrugs) {
-		List<Disease> symptoms = diseases(5, 5);
-		List<Long> ids = LongStream.range(0, 5).boxed().collect(Collectors.toList());
-		List<List<Long>> idSymptoms = Stream.generate(() -> {
-					Collections.shuffle(ids);
-					return ids.subList(0, random.nextInt(5 - 1) + 1);
-				})
-				.limit(nDrugs)
-				.collect(Collectors.toList());
-		return drugs(symptoms, idSymptoms);
-	}
+    public static List<Drug> drugs(int nDrugs) {
+        List<Disease> symptoms = diseases(5, 5);
+        List<Long> ids = LongStream.range(0, 5).boxed().collect(Collectors.toList());
+        List<List<Long>> idSymptoms = Stream.generate(() -> {
+                Collections.shuffle(ids);
+                return ids.subList(0, random.nextInt(5 - 1) + 1);
+            })
+            .limit(nDrugs)
+            .collect(Collectors.toList());
+        return drugs(symptoms, idSymptoms);
+    }
 
     public static List<Disease> diseases(List<Symptom> allSymptoms, List<String> names, List<List<Long>> ids) {
         if (names.size() != ids.size()) {
@@ -148,14 +148,14 @@ public class TestUtils {
         }
 
         Map<Long, Symptom> symptomById = allSymptoms.stream().collect(Collectors.toMap(
-                Model::getId, Function.identity()
+            Model::getId, Function.identity()
         ));
 
         Function<Long, Disease> create = id -> {
             var d = mock(Disease.class);
             when(d.getSymptoms()).thenReturn(ids.get(id.intValue()).stream()
-                    .map(symptomById::get)
-                    .collect(Collectors.toList()));
+                .map(symptomById::get)
+                .collect(Collectors.toList()));
             when(d.getName()).thenReturn(names.get(id.intValue()));
             when(d.getId()).thenReturn(id);
             return d;
@@ -172,11 +172,11 @@ public class TestUtils {
         List<Symptom> symptoms = symptoms(nSymptoms);
         List<Long> ids = LongStream.range(0, nSymptoms).boxed().collect(Collectors.toList());
         List<List<Long>> idSymptoms = Stream.generate(() -> {
-                    Collections.shuffle(ids);
-                    return ids.subList(0, random.nextInt(nSymptoms - 1) + 1);
-                })
-                .limit(nDiseases)
-                .collect(Collectors.toList());
+                Collections.shuffle(ids);
+                return ids.subList(0, random.nextInt(nSymptoms - 1) + 1);
+            })
+            .limit(nDiseases)
+            .collect(Collectors.toList());
         return diseases(symptoms, idSymptoms);
     }
 
@@ -196,18 +196,18 @@ public class TestUtils {
     public static List<DoctorType> doctorTypes(List<Disease> allDiseases, List<List<Long>> doctorTypeDiseaseDependencies, List<String> names) {
 
         Map<Long, Disease> diseasesById = allDiseases.stream().collect(
-                Collectors.toMap(
-                        Disease::getId,
-                        Function.identity())
+            Collectors.toMap(
+                Disease::getId,
+                Function.identity())
         );
 
         Function<Long, DoctorType> create = id -> {
             var d = mock(DoctorType.class);
             when(d.getId()).thenReturn(id);
             when(d.getDiseases()).thenReturn(
-                    doctorTypeDiseaseDependencies.get(id.intValue()).stream()
-                            .map(diseasesById::get)
-                            .collect(Collectors.toSet())
+                doctorTypeDiseaseDependencies.get(id.intValue()).stream()
+                    .map(diseasesById::get)
+                    .collect(Collectors.toSet())
             );
             when(d.getName()).thenReturn(names.get(id.intValue()));
             return d;
@@ -224,11 +224,11 @@ public class TestUtils {
     public static List<DoctorType> doctorTypes(List<Disease> allDiseases, int nDoctorTypes) {
         List<Long> ids = allDiseases.stream().map(Model::getId).collect(Collectors.toList());
         List<List<Long>> doctorTypeDiseaseDependencies = Stream.generate(() -> {
-                    Collections.shuffle(ids);
-                    return ids.subList(0, random.nextInt(allDiseases.size() - 1) + 1);
-                })
-                .limit(nDoctorTypes)
-                .collect(Collectors.toList());
+                Collections.shuffle(ids);
+                return ids.subList(0, random.nextInt(allDiseases.size() - 1) + 1);
+            })
+            .limit(nDoctorTypes)
+            .collect(Collectors.toList());
         return doctorTypes(allDiseases, doctorTypeDiseaseDependencies);
     }
 
@@ -279,7 +279,8 @@ public class TestUtils {
     public static Interaction interactionFromSymptomAnswerMap(Map<Symptom, Answer> map) {
         return new Interaction() {
             @Override
-            public void close() {}
+            public void close() {
+            }
 
             @Override
             public Answer askAboutSymptom(Symptom s) {

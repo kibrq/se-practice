@@ -1,19 +1,19 @@
 package ru.hse.akinator.model;
 
 public interface Doctor extends Model {
-    static Doctor create(Long id, String name, DoctorType doctorType, double busyness) {
-        return new DoctorImpl(id, name, doctorType, busyness);
-    }
+	static Doctor create(Long id, String name, DoctorType doctorType, double busyness) {
+		return new DoctorImpl(id, name, doctorType, busyness);
+	}
 
-    String getName();
+	String getName();
 
-    void setName(String name);
+	void setName(String name);
 
-    DoctorType getType();
+	DoctorType getType();
 
-    void setType(DoctorType type);
+	void setType(DoctorType type);
 
-    double getBusyness();
+	double getBusyness();
 
-    void setBusyness(double busyness);
+	void setBusyness(double busyness);
 }

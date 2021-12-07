@@ -19,11 +19,11 @@ public class DoctorServiceTest {
 
     public static Object[][] testGetAllRelevantTypes_Source() {
         return new Object[][]{
-                {List.of(), 1, List.of()},
-                {List.of(List.of(0L)), 1, List.of()},
-                {List.of(List.of(0L, 1L)), 1, List.of(0)},
-                {List.of(List.of(0L), List.of(0L), List.of(0L)), 0, List.of(0, 1, 2)},
-                {List.of(List.of(0L), List.of(0L), List.of(0L)), 2, List.of()}
+            {List.of(), 1, List.of()},
+            {List.of(List.of(0L)), 1, List.of()},
+            {List.of(List.of(0L, 1L)), 1, List.of(0)},
+            {List.of(List.of(0L), List.of(0L), List.of(0L)), 0, List.of(0, 1, 2)},
+            {List.of(List.of(0L), List.of(0L), List.of(0L)), 2, List.of()}
         };
     }
 
@@ -36,19 +36,19 @@ public class DoctorServiceTest {
         List<DoctorType> actualDoctorTypes = DoctorService.getAllRelevantTypes(allDoctorTypes, allDiseases.get(diseaseNumber));
 
         Set<DoctorType> expected = relevantDoctorTypeNumbers.stream()
-                .map(allDoctorTypes::get)
-                .collect(Collectors.toSet());
+            .map(allDoctorTypes::get)
+            .collect(Collectors.toSet());
         Set<DoctorType> actual = new HashSet<>(actualDoctorTypes);
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     public static Object[][] testGetAllRelevantDoctors_Source() {
         return new Object[][]{
-                {List.of(), List.of(0, 1), List.of()},
-                {List.of(0L), List.of(0, 1), List.of(0)},
-                {List.of(0L, 0L, 1L, 0L), List.of(0, 2), List.of(0, 1, 3)},
-                {List.of(0L, 0L, 1L, 0L), List.of(1), List.of(2)},
-                {List.of(0L, 0L, 1L, 0L), List.of(0, 1), List.of(0, 1, 2, 3)}
+            {List.of(), List.of(0, 1), List.of()},
+            {List.of(0L), List.of(0, 1), List.of(0)},
+            {List.of(0L, 0L, 1L, 0L), List.of(0, 2), List.of(0, 1, 3)},
+            {List.of(0L, 0L, 1L, 0L), List.of(1), List.of(2)},
+            {List.of(0L, 0L, 1L, 0L), List.of(0, 1), List.of(0, 1, 2, 3)}
         };
     }
 
@@ -60,34 +60,34 @@ public class DoctorServiceTest {
         List<Doctor> allDoctors = TestUtils.doctors(allDoctorTypes, doctorDoctorTypeDependencies);
 
         List<Doctor> actualDoctors = DoctorService.getAllRelevantDoctors(
-                allDoctors, testedDoctorTypeNumbers.stream().map(allDoctorTypes::get).collect(Collectors.toList())
+            allDoctors, testedDoctorTypeNumbers.stream().map(allDoctorTypes::get).collect(Collectors.toList())
         );
 
         Set<Doctor> expected = relevantDoctorNumbers.stream()
-                .map(allDoctors::get)
-                .collect(Collectors.toSet());
+            .map(allDoctors::get)
+            .collect(Collectors.toSet());
         Set<Doctor> actual = new HashSet<>(actualDoctors);
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     public static Object[][] testGetLessBusinessDoctor_Source() {
         return new Object[][]{
-                {List.of(List.of(0L, 1L, 2L)), List.of(), List.of(), 0, -1},
-                {List.of(List.of(0L, 1L, 2L)), List.of(0L), List.of(1.), 3, -1},
-                {List.of(List.of(0L, 1L, 2L)), List.of(0L), List.of(1.), 0, 0},
-                {List.of(List.of(0L, 1L, 2L)), List.of(0L, 0L), List.of(1., 2.), 1, 0},
-                {List.of(List.of(0L, 1L), List.of(0L, 2L)), List.of(0L, 1L), List.of(1., 2.), 0, 0}
+            {List.of(List.of(0L, 1L, 2L)), List.of(), List.of(), 0, -1},
+            {List.of(List.of(0L, 1L, 2L)), List.of(0L), List.of(1.), 3, -1},
+            {List.of(List.of(0L, 1L, 2L)), List.of(0L), List.of(1.), 0, 0},
+            {List.of(List.of(0L, 1L, 2L)), List.of(0L, 0L), List.of(1., 2.), 1, 0},
+            {List.of(List.of(0L, 1L), List.of(0L, 2L)), List.of(0L, 1L), List.of(1., 2.), 0, 0}
         };
     }
 
     @ParameterizedTest
     @MethodSource("testGetLessBusinessDoctor_Source")
     public void testGetLessBusinessDoctor(
-            List<List<Long>> doctorTypeDiseaseDependencies,
-            List<Long> doctorDoctorTypeDependencies,
-            List<Double> businesses,
-            int diseaseNumber,
-            int doctorNumber
+        List<List<Long>> doctorTypeDiseaseDependencies,
+        List<Long> doctorDoctorTypeDependencies,
+        List<Double> businesses,
+        int diseaseNumber,
+        int doctorNumber
     ) {
         List<Disease> allDiseases = TestUtils.diseases(10, 10);
         List<DoctorType> allDoctorTypes = TestUtils.doctorTypes(allDiseases, doctorTypeDiseaseDependencies);

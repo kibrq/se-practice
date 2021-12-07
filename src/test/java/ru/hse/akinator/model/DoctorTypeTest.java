@@ -10,10 +10,10 @@ import java.util.Set;
 public class DoctorTypeTest {
 
     public static Object[][] testGetters_Source() {
-        return new Object[][] {
-                {0L, "", Set.of()},
-                {0L, "", Set.of()},
-                {1L, TestUtils.randomAlphabeticString(3), TestUtils.diseasesAsSet(10, 3)}
+        return new Object[][]{
+            {0L, "", Set.of()},
+            {0L, "", Set.of()},
+            {1L, TestUtils.randomAlphabeticString(3), TestUtils.diseasesAsSet(10, 3)}
         };
     }
 
@@ -28,12 +28,12 @@ public class DoctorTypeTest {
     }
 
     public static Object[][] testSettersAndGetters_Source() {
-        return new Object[][] {
-                {0L, "", Set.of(), "", Set.of()},
-                {0L, "a", Set.of(), "", Set.of()},
-                {0L, "", Set.of(), "a", Set.of()},
-                {0L, "", Set.of(), TestUtils.randomAlphabeticString(3), TestUtils.diseasesAsSet(10, 1)},
-                {0L, TestUtils.randomAlphabeticString(3), TestUtils.diseasesAsSet(10, 3), "b", TestUtils.diseasesAsSet(10, 3)}
+        return new Object[][]{
+            {0L, "", Set.of(), "", Set.of()},
+            {0L, "a", Set.of(), "", Set.of()},
+            {0L, "", Set.of(), "a", Set.of()},
+            {0L, "", Set.of(), TestUtils.randomAlphabeticString(3), TestUtils.diseasesAsSet(10, 1)},
+            {0L, TestUtils.randomAlphabeticString(3), TestUtils.diseasesAsSet(10, 3), "b", TestUtils.diseasesAsSet(10, 3)}
         };
     }
 
@@ -47,7 +47,7 @@ public class DoctorTypeTest {
         Assertions.assertThat(doctorType.getDiseases()).isEqualTo(diseasesSet);
 
         TestUtils.checkNullsAndConsume(doctorType::setName, name1);
-		TestUtils.checkNullsAndConsume(doctorType::setDiseases, diseasesSet1);
+        TestUtils.checkNullsAndConsume(doctorType::setDiseases, diseasesSet1);
 
         Assertions.assertThat(doctorType.getId()).isEqualTo(id);
     }

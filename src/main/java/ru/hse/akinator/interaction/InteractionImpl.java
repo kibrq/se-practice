@@ -48,7 +48,7 @@ public class InteractionImpl implements Interaction {
             throw new IllegalArgumentException();
         }
         return symptoms.stream().collect(
-                Collectors.toMap(Function.identity(), this::askAboutSymptom)
+            Collectors.toMap(Function.identity(), this::askAboutSymptom)
         );
     }
 

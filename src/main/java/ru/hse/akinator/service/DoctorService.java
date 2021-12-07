@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class DoctorService {
     public static List<DoctorType> getAllRelevantTypes(List<DoctorType> allTypes, Disease disease) {
         return allTypes.stream()
-                .filter(doctorType -> doctorType.getDiseases().contains(disease))
-                .collect(Collectors.toList());
+            .filter(doctorType -> doctorType.getDiseases().contains(disease))
+            .collect(Collectors.toList());
     }
 
     public static List<Doctor> getAllRelevantDoctors(List<Doctor> allDoctors, List<DoctorType> types) {
@@ -22,8 +22,8 @@ public class DoctorService {
 
     public static Doctor getLessBusynessDoctor(Disease disease, Repository<Doctor> doctorRepository) {
         return doctorRepository.getAll().stream()
-                .filter(doctor -> doctor.getType().getDiseases().contains(disease))
-                .reduce((d1, d2) -> d1.getBusyness() < d2.getBusyness() ? d1 : d2)
-                .orElse(null);
+            .filter(doctor -> doctor.getType().getDiseases().contains(disease))
+            .reduce((d1, d2) -> d1.getBusyness() < d2.getBusyness() ? d1 : d2)
+            .orElse(null);
     }
 }

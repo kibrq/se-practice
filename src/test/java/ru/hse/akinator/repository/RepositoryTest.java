@@ -13,7 +13,7 @@ public class RepositoryTest {
 
     public static Object[][] test_Source() {
         return new Object[][]{
-                {TestUtils.symptoms(10)}
+            {TestUtils.symptoms(10)}
         };
     }
 

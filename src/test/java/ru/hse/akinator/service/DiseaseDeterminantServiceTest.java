@@ -23,21 +23,21 @@ public class DiseaseDeterminantServiceTest {
 
     public static Object[][] testMeasureProbability_firstDiseaseIsGreaterThanSecond_Source() {
         return new Object[][]{
-                {
-                        List.of(0L, 1L),
-                        List.of(1L, 2L),
-                        List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
-                },
-                {
-                        List.of(0L),
-                        List.of(1L),
-                        List.of(Answer.MORE_YES_THAN_NO, Answer.MORE_NO_THAN_YES),
-                },
-                {
-                        List.of(2L, 1L, 0L),
-                        List.of(2L, 3L),
-                        List.of(Answer.DEFINITELY_YES, Answer.MORE_NO_THAN_YES, Answer.IDK, Answer.IDK),
-                }
+            {
+                List.of(0L, 1L),
+                List.of(1L, 2L),
+                List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
+            },
+            {
+                List.of(0L),
+                List.of(1L),
+                List.of(Answer.MORE_YES_THAN_NO, Answer.MORE_NO_THAN_YES),
+            },
+            {
+                List.of(2L, 1L, 0L),
+                List.of(2L, 3L),
+                List.of(Answer.DEFINITELY_YES, Answer.MORE_NO_THAN_YES, Answer.IDK, Answer.IDK),
+            }
         };
     }
 
@@ -56,7 +56,7 @@ public class DiseaseDeterminantServiceTest {
                                                                        List<Answer> answersBySymptomId) {
         List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
         List<Disease> diseases = TestUtils.diseases(
-                symptoms, List.of(firstDiseaseSymptoms, secondDiseaseSymptoms)
+            symptoms, List.of(firstDiseaseSymptoms, secondDiseaseSymptoms)
         );
 
         Map<Symptom, Answer> answerMap = fromAnswerListToAnswerMap(symptoms, answersBySymptomId);
@@ -72,21 +72,21 @@ public class DiseaseDeterminantServiceTest {
 
     public static Object[][] testMeasureProbability_firstAnswerIsGreaterThanSecond_Source() {
         return new Object[][]{
-                {
-                        List.of(0L, 1L, 2L),
-                        List.of(Answer.DEFINITELY_YES, Answer.DEFINITELY_YES, Answer.DEFINITELY_YES),
-                        List.of(Answer.DEFINITELY_NO, Answer.DEFINITELY_NO, Answer.DEFINITELY_NO)
-                },
-                {
-                        List.of(0L),
-                        List.of(Answer.MORE_YES_THAN_NO),
-                        List.of(Answer.IDK)
-                },
-                {
-                        List.of(0L, 1L),
-                        List.of(Answer.MORE_YES_THAN_NO, Answer.IDK),
-                        List.of(Answer.MORE_NO_THAN_YES, Answer.MORE_NO_THAN_YES)
-                }
+            {
+                List.of(0L, 1L, 2L),
+                List.of(Answer.DEFINITELY_YES, Answer.DEFINITELY_YES, Answer.DEFINITELY_YES),
+                List.of(Answer.DEFINITELY_NO, Answer.DEFINITELY_NO, Answer.DEFINITELY_NO)
+            },
+            {
+                List.of(0L),
+                List.of(Answer.MORE_YES_THAN_NO),
+                List.of(Answer.IDK)
+            },
+            {
+                List.of(0L, 1L),
+                List.of(Answer.MORE_YES_THAN_NO, Answer.IDK),
+                List.of(Answer.MORE_NO_THAN_YES, Answer.MORE_NO_THAN_YES)
+            }
         };
     }
 
@@ -113,21 +113,21 @@ public class DiseaseDeterminantServiceTest {
 
     public static Object[][] testMeasureProbability_firstDiseaseIsEqualSecond_Source() {
         return new Object[][]{
-                {
-                        List.of(0L, 1L),
-                        List.of(1L, 2L),
-                        List.of(Answer.DEFINITELY_YES, Answer.DEFINITELY_YES, Answer.DEFINITELY_YES),
-                },
-                {
-                        List.of(0L),
-                        List.of(1L),
-                        List.of(Answer.MORE_YES_THAN_NO, Answer.MORE_YES_THAN_NO),
-                },
-                {
-                        List.of(0L, 1L),
-                        List.of(1L, 2L),
-                        List.of(Answer.IDK, Answer.DEFINITELY_NO, Answer.IDK),
-                }
+            {
+                List.of(0L, 1L),
+                List.of(1L, 2L),
+                List.of(Answer.DEFINITELY_YES, Answer.DEFINITELY_YES, Answer.DEFINITELY_YES),
+            },
+            {
+                List.of(0L),
+                List.of(1L),
+                List.of(Answer.MORE_YES_THAN_NO, Answer.MORE_YES_THAN_NO),
+            },
+            {
+                List.of(0L, 1L),
+                List.of(1L, 2L),
+                List.of(Answer.IDK, Answer.DEFINITELY_NO, Answer.IDK),
+            }
         };
     }
 
@@ -138,7 +138,7 @@ public class DiseaseDeterminantServiceTest {
                                                                  List<Answer> answersBySymptomId) {
         List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
         List<Disease> diseases = TestUtils.diseases(
-                symptoms, List.of(firstDiseaseSymptoms, secondDiseaseSymptoms)
+            symptoms, List.of(firstDiseaseSymptoms, secondDiseaseSymptoms)
         );
 
         Map<Symptom, Answer> answerMap = fromAnswerListToAnswerMap(symptoms, answersBySymptomId);
@@ -154,21 +154,21 @@ public class DiseaseDeterminantServiceTest {
 
     public static Object[][] testMeasureProbability_firstAnswerIsEqualToSecond_Source() {
         return new Object[][]{
-                {
-                        List.of(0L, 1L, 2L),
-                        List.of(Answer.DEFINITELY_YES, Answer.IDK, Answer.DEFINITELY_YES),
-                        List.of(Answer.DEFINITELY_YES, Answer.DEFINITELY_YES, Answer.IDK)
-                },
-                {
-                        List.of(0L),
-                        List.of(Answer.MORE_YES_THAN_NO),
-                        List.of(Answer.MORE_YES_THAN_NO)
-                },
-                {
-                        List.of(0L, 1L),
-                        List.of(Answer.IDK, Answer.IDK),
-                        List.of(Answer.IDK, Answer.IDK)
-                }
+            {
+                List.of(0L, 1L, 2L),
+                List.of(Answer.DEFINITELY_YES, Answer.IDK, Answer.DEFINITELY_YES),
+                List.of(Answer.DEFINITELY_YES, Answer.DEFINITELY_YES, Answer.IDK)
+            },
+            {
+                List.of(0L),
+                List.of(Answer.MORE_YES_THAN_NO),
+                List.of(Answer.MORE_YES_THAN_NO)
+            },
+            {
+                List.of(0L, 1L),
+                List.of(Answer.IDK, Answer.IDK),
+                List.of(Answer.IDK, Answer.IDK)
+            }
         };
     }
 
@@ -199,33 +199,33 @@ public class DiseaseDeterminantServiceTest {
 
     public static Object[][] testSortByRelevance_Source() {
         return new Object[][]{
-                {
-                        List.of(
-                                List.of(0L, 1L, 2L),
-                                List.of(1L, 2L),
-                                List.of(2L)
-                        ),
-                        List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
-                        List.of(0, 1, 2)
-                },
-                {
-                        List.of(
-                                List.of(2L),
-                                List.of(1L),
-                                List.of(0L)
-                        ),
-                        List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.MORE_NO_THAN_YES),
-                        List.of(2, 1, 0)
-                },
-                {
-                        List.of(
-                                List.of(2L),
-                                List.of(1L, 2L),
-                                List.of(0L, 2L)
-                        ),
-                        List.of(Answer.MORE_NO_THAN_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
-                        List.of(1, 0, 2)
-                }
+            {
+                List.of(
+                    List.of(0L, 1L, 2L),
+                    List.of(1L, 2L),
+                    List.of(2L)
+                ),
+                List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
+                List.of(0, 1, 2)
+            },
+            {
+                List.of(
+                    List.of(2L),
+                    List.of(1L),
+                    List.of(0L)
+                ),
+                List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.MORE_NO_THAN_YES),
+                List.of(2, 1, 0)
+            },
+            {
+                List.of(
+                    List.of(2L),
+                    List.of(1L, 2L),
+                    List.of(0L, 2L)
+                ),
+                List.of(Answer.MORE_NO_THAN_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
+                List.of(1, 0, 2)
+            }
         };
     }
 
@@ -239,7 +239,7 @@ public class DiseaseDeterminantServiceTest {
 
         List<Symptom> symptoms = TestUtils.symptoms(size);
         List<Disease> diseases = TestUtils.diseases(
-                symptoms, diseaseSymptoms
+            symptoms, diseaseSymptoms
         );
         List<Disease> correctDiseases = new ArrayList<>();
         correctOrder.forEach(i -> correctDiseases.add(diseases.get(i)));
@@ -253,30 +253,30 @@ public class DiseaseDeterminantServiceTest {
 
     public static Object[][] testSortByRelevance_consistentWithMeasureProbability_Source() {
         return new Object[][]{
-                {
-                        List.of(
-                                List.of(0L, 1L, 2L),
-                                List.of(1L, 2L),
-                                List.of(2L)
-                        ),
-                        List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
-                },
-                {
-                        List.of(
-                                List.of(2L),
-                                List.of(1L),
-                                List.of(0L)
-                        ),
-                        List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.MORE_NO_THAN_YES),
-                },
-                {
-                        List.of(
-                                List.of(2L),
-                                List.of(1L, 2L),
-                                List.of(0L, 2L)
-                        ),
-                        List.of(Answer.MORE_NO_THAN_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
-                }
+            {
+                List.of(
+                    List.of(0L, 1L, 2L),
+                    List.of(1L, 2L),
+                    List.of(2L)
+                ),
+                List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
+            },
+            {
+                List.of(
+                    List.of(2L),
+                    List.of(1L),
+                    List.of(0L)
+                ),
+                List.of(Answer.DEFINITELY_YES, Answer.MORE_YES_THAN_NO, Answer.MORE_NO_THAN_YES),
+            },
+            {
+                List.of(
+                    List.of(2L),
+                    List.of(1L, 2L),
+                    List.of(0L, 2L)
+                ),
+                List.of(Answer.MORE_NO_THAN_YES, Answer.MORE_YES_THAN_NO, Answer.IDK),
+            }
         };
     }
 
@@ -286,7 +286,7 @@ public class DiseaseDeterminantServiceTest {
                                                                      List<Answer> answersBySymptomId) {
         List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
         List<Disease> diseases = TestUtils.diseases(
-                symptoms, diseaseSymptoms
+            symptoms, diseaseSymptoms
         );
 
         Map<Symptom, Answer> answerMap = fromAnswerListToAnswerMap(symptoms, answersBySymptomId);
@@ -317,7 +317,7 @@ public class DiseaseDeterminantServiceTest {
 
         List<Symptom> symptoms = TestUtils.symptoms(size);
         List<Disease> diseases = TestUtils.diseases(
-                symptoms, diseaseSymptoms
+            symptoms, diseaseSymptoms
         );
         Repository<Symptom> symptomRepository = TestUtils.repositoryFromList(symptoms);
         Repository<Disease> diseaseRepository = TestUtils.repositoryFromList(diseases);
@@ -329,9 +329,9 @@ public class DiseaseDeterminantServiceTest {
         correctOrder.forEach(i -> correctDiseases.add(diseases.get(i)));
 
         List<Disease> receivedDiseases = DiseaseDeterminantService.diseasesSortedByRelevance(
-                interaction,
-                symptomRepository,
-                diseaseRepository
+            interaction,
+            symptomRepository,
+            diseaseRepository
         );
 
         Assertions.assertThat(receivedDiseases).isEqualTo(correctDiseases);
@@ -343,7 +343,7 @@ public class DiseaseDeterminantServiceTest {
                                                                                List<Answer> answersBySymptomId) {
         List<Symptom> symptoms = TestUtils.symptoms(answersBySymptomId.size());
         List<Disease> diseases = TestUtils.diseases(
-                symptoms, diseaseSymptoms
+            symptoms, diseaseSymptoms
         );
         Repository<Symptom> symptomRepository = TestUtils.repositoryFromList(symptoms);
         Repository<Disease> diseaseRepository = TestUtils.repositoryFromList(diseases);
@@ -359,9 +359,9 @@ public class DiseaseDeterminantServiceTest {
         });
 
         List<Disease> receivedDiseases = DiseaseDeterminantService.diseasesSortedByRelevance(
-                interaction,
-                symptomRepository,
-                diseaseRepository
+            interaction,
+            symptomRepository,
+            diseaseRepository
         );
 
         Assertions.assertThat(receivedDiseases).isEqualTo(correctDiseases);
