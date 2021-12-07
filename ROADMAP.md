@@ -13,8 +13,11 @@
 
 ## 0.3.*
 - Add Spring Boot
+- Add an ability for the user to make an appointment to the appropriate doctor
+- Add an ability for the doctor to manage profile and appointments
 
 ## 0.4.*
+- Add moderator role
 - Add a database and another implementation for Repository
 - Add a controller for asking questions about symptoms
 
