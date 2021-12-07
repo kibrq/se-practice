@@ -6,7 +6,9 @@
         <module name="AvoidStarImport">
             <property name="severity" value="error" />
         </module>
-        <module name="AvoidStaticImport"/>
+        <module name="AvoidStaticImport">
+            <property name="excludes" value="org.mockito.Mockito.*"/>
+        </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreStatic" value="true"/>
             <property name="ignoreOverriddenMethods" value="false"/>
