@@ -27,7 +27,7 @@ As a moderator, I want to maintain order, so I can ban a charlatan doctor.
 When a user finds out his disease, I want to let him cure it, so I create an appointment to a doctor.
 
 #### Job story №2
-When an appointment is created, I want to rebalance a doctor's working hours, so I change his busyness factor.
+When an appointment is created, I want to rebalance my working hours, so I change my busyness factor.
 
 #### Job story №3
 When an incompetent doctor joins, I want to ban him from the system, so I let moderators have appropriate rights.
