@@ -21,7 +21,7 @@ To run the application use:
 ./gradlew run
 ```
 To run all the tests use:
-```basjh
+```bash
 ./gradlew test
 ```
 
