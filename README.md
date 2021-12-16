@@ -55,11 +55,9 @@ Please make sure to update tests as appropriate.
 
 ## Contributors
 
-Kirill Brilliantov [kibrq](https://github.com/kibrq)
-
-Maxim Sukhodolskii [maxuh14](https://github.com/maxuh14)
-
-Ruslan Salkaev [salkaevruslan](https://github.com/salkaevruslan)
+* Kirill Brilliantov [kibrq](https://github.com/kibrq)
+* Maxim Sukhodolskii [maxuh14](https://github.com/maxuh14)
+* Ruslan Salkaev [salkaevruslan](https://github.com/salkaevruslan)
 
 ## License
 [Apache-2.0 License](https://choosealicense.com/licenses/apache-2.0/)
