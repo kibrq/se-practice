@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface Repository<T> {
     static <T extends Model> Repository<T> create(Class<T> c) {
-        throw new UnsupportedOperationException();
+        return new RepositoryImpl<>(c);
     }
 
     List<T> getAll();
