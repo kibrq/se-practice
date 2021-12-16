@@ -13,7 +13,7 @@ Moderators can ban users and doctors and address controversial issues.
 ## User stories
 
 #### User story №1
-As a user, I want to know my disease so I can log in and answer akinator survey.
+As an authorized user, I want to know my disease so I can log in and answer akinator survey.
 
 #### User story №2
 As a doctor, I want to change my working hours, so I can modify appointments to me.
